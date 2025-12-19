@@ -1,0 +1,108 @@
+const express = require('express');
+const path = require('path');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const connectDB = require('./src/config/db');
+const errorHandler = require('./src/middleware/errorMiddleware');
+const logger = require('./src/utils/logger');
+
+// Route imports
+const authRoutes = require('./src/routes/authRoutes');
+const restaurantRoutes = require('./src/routes/restaurantRoutes');
+const orderRoutes = require('./src/routes/orderRoutes');
+const menuRoutes = require('./src/routes/menuRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
+const statRoutes = require('./src/routes/statRoutes');
+const paymentRoutes = require('./src/routes/paymentRoutes');
+
+// Load env vars
+dotenv.config();
+
+// Connect to database
+connectDB();
+
+const app = express();
+
+// Body parser
+app.use(express.json({ limit: '10mb' }));
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
+// Enable CORS
+app.use(cors());
+
+// Rate limiting
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 10000 // 10000 requests per window (Increased for Testing)
+});
+app.use('/api/', limiter);
+
+// Mount routers
+const apiRouter = express.Router();
+
+apiRouter.use('/auth', authRoutes);
+apiRouter.use('/restaurants', restaurantRoutes);
+apiRouter.use('/orders', orderRoutes);
+apiRouter.use('/menu', menuRoutes);
+apiRouter.use('/admin', adminRoutes);
+apiRouter.use('/stats', statRoutes);
+apiRouter.use('/payments', paymentRoutes);
+
+app.use('/api/v1', apiRouter);
+
+// Serve SEO files from root
+app.get('/robots.txt', (req, res) => res.sendFile(path.join(__dirname, '../robots.txt')));
+app.get('/sitemap.xml', (req, res) => res.sendFile(path.join(__dirname, '../sitemap.xml')));
+
+// Google Search Console Verification Placeholder
+// app.get('/google*.html', (req, res) => res.status(200).send('google-site-verification: googleXXXX.html'));
+
+// STATIC FILES SERVING
+// 1. Landing Page (Root)
+app.use(express.static(path.join(__dirname, '../testing-page')));
+
+// 2. Explicit folder routes to prevent 404s if user types full path
+app.use('/testing-page', express.static(path.join(__dirname, '../testing-page')));
+app.use('/FInal-login-Page', express.static(path.join(__dirname, '../FInal-login-Page')));
+
+
+// 3. Login Page (Mounted at /login)
+app.use('/login', express.static(path.join(__dirname, '../FInal-login-Page')));
+
+// Explicit redirect for login navigation
+app.get('/login-redirect', (req, res) => {
+    res.redirect('/login/');
+});
+
+// Catch-all for Frontend (SPA feel if needed, but here simple)
+// app.get('*', (req, res) => ...)
+
+// Health check
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'OK', message: 'Tap2Serve API is healthy' });
+});
+
+// Error handler
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 3000;
+
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        logger.info(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+    });
+}
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+    logger.error(`Error: ${err.message}`);
+    // server.close(() => process.exit(1)); // Closing server depends on how it's started
+});
+
+module.exports = app;

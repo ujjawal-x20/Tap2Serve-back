@@ -1,0 +1,18 @@
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .login-card {
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+}
+
+/* MOBILE VIEW – RIGHT PANEL DISABLE */
+@media (max-width: 900px) {
+    .right-panel {
+        display: none;
+    }
+}

@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Tap2Serve - Premium Dining Operating System for Modern Restaurants</title>
+    <meta name="description"
+        content="Tap2Serve is a luxury dining platform that integrates contactless ordering, real-time analytics, and secure payments for premium restaurants and hotel chains." />
+    <meta name="keywords"
+        content="smart dining, restaurant management, QR ordering, luxury dining, hospitality tech, contactless payment" />
+    <link rel="canonical" href="https://tap2serve.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tap2serve.com/" />
+    <meta property="og:title" content="Tap2Serve - Elevate Your Dining Experience" />
+    <meta property="og:description"
+        content="The premier smart dining platform for modern, luxury restaurants. Seamlessly integrate ordering, payments, and analytics." />
+    <meta property="og:image" content="https://tap2serve.com/assets/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://tap2serve.com/" />
+    <meta property="twitter:title" content="Tap2Serve - Elevate Your Dining Experience" />
+    <meta property="twitter:description"
+        content="The premier smart dining platform for modern, luxury restaurants. Seamlessly integrate ordering, payments, and analytics." />
+    <meta property="twitter:image" content="https://tap2serve.com/assets/og-image.jpg" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Tap2Serve",
+      "url": "https://tap2serve.com/",
+      "description": "Smart dining platform for luxury restaurants.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "999.00",
+        "priceCurrency": "INR"
+      }
+    }
+    </script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#c9a24d", // Luxury Gold
+                        "primary-dark": "#a08036",
+                        "bg-deep": "#0b0b0b", // Deep Black
+                        "bg-soft": "#1a1a1a", // Soft Black
+                        "text-main": "#ffffff",
+                        "text-muted": "#b5b5b5",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(201, 162, 77, 0.15)',
+                        'glow-hover': '0 0 30px rgba(201, 162, 77, 0.3)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0b0b;
+            color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0b0b0b;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c9a24d;
+        }
+
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #f0d488 0%, #c9a24d 50%, #8a6e2f 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-nav {
+            background: rgba(11, 11, 11, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-hover-effect {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 162, 77, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===============================
+   ANTIGRAVITY MOTION LAYER
+================================ */
+
+        /* smooth cinematic easing */
+        .ag-hidden {
+            opacity: 0;
+            transform: translateY(60px) scale(0.96);
+            transition:
+                opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1),
+                transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .ag-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* depth hint */
+        .ag-depth {
+            will-change: transform, opacity;
+        }
+
+        /* hero slow feel */
+        .hero-bg {
+            will-change: transform;
+            transition: transform 1.5s ease;
+        }
+
+        /* ===============================
+   ANTIGRAVITY LEVEL 2
+================================ */
+
+        /* SCROLL SNAP (desktop only feel) */
+        @media (min-width: 1024px) {
+            body {
+                scroll-snap-type: y mandatory;
+            }
+
+            section {
+                scroll-snap-align: start;
+            }
+        }
+
+        /* Cinematic easing */
+        .ag-cinematic {
+            transition:
+                transform 1.6s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 1.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Subtle noise / light overlay */
+
+
+        /* Scene compression (depth feel) */
+        .ag-scene {
+            will-change: transform, opacity;
+        }
+
+        /* ===============================
+   ANTIGRAVITY PRO LAYER
+================================ */
+
+        /* text morph illusion */
+        .ag-morph {
+            transition:
+                transform 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                opacity 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                letter-spacing 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* section memory fade */
+        .ag-memory {
+            filter: blur(0px);
+            transition: filter 1.5s ease, opacity 1.5s ease;
+        }
+
+        /* light sweep */
+        .ag-light::after {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: linear-gradient(120deg,
+                    transparent 40%,
+                    rgba(255, 255, 255, 0.06),
+                    transparent 60%);
+            transform: translateX(-100%);
+            pointer-events: none;
+        }
+
+        /* magnetic buttons */
+        .ag-magnetic {
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* ===============================
+   FIX: NOISE LAYER
+================================ */
+        .ag-noise {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.035;
+            z-index: 40;
+            /* modal se niche */
+        }
+
+        /* ===============================
+   LOGIN POPUP ANIMATION
+================================ */
+        #loginModal {
+            transition: opacity 0.3s ease;
+        }
+
+        #loginBox {
+            opacity: 0;
+            transform: scale(0.9) translateY(30px);
+            transition:
+                opacity 0.4s ease,
+                transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        #loginModal.flex #loginBox {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* ===============================
+   PREMIUM LOGIN LOADER
+================================ */
+
+        #loginLoader {
+            opacity: 1;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        #loginLoader.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.96);
+        }
+
+        /* Gold orbit */
+        .loader-orbit {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid rgba(201, 162, 77, 0.15);
+            border-top-color: #c9a24d;
+            animation: orbit-spin 1.2s linear infinite;
+            box-shadow: 0 0 30px rgba(201, 162, 77, 0.25);
+        }
+
+        /* Core */
+        .loader-core {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle at top, #1a1a1a, #000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                inset 0 0 15px rgba(201, 162, 77, 0.25),
+                0 0 25px rgba(201, 162, 77, 0.25);
+            animation: core-pulse 2s ease-in-out infinite;
+        }
+
+        /* Text */
+        .loader-text {
+            font-size: 12px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #c9a24d;
+            opacity: 0.8;
+            animation: text-fade 2s ease-in-out infinite;
+        }
+
+        @keyframes orbit-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes core-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        @keyframes text-fade {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUpStairs {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stairs-animation {
+            animation: slideUpStairs 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            /* init hidden */
+        }
+
+        /* Navbar Underline Effect */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #c9a24d;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+
+
+        /* Custom Cursor */
+        body {
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(201, 162, 77, 0.15);
+            border: none;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(2px);
+            box-shadow: 0 0 15px rgba(201, 162, 77, 0.15);
+            transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+                height 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+                background-color 0.3s ease;
+        }
+
+        .custom-cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background: rgba(201, 162, 77, 0.1);
+            backdrop-filter: blur(0px);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: #c9a24d;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(201, 162, 77, 0.5);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .cursor-dot.hovered {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* Mobile Disable */
+        @media (max-width: 768px) {
+
+            .custom-cursor,
+            .cursor-dot {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased overflow-x-hidden selection:bg-primary selection:text-black">
+    <div class="cursor-dot"></div>
+    <div class="custom-cursor"></div>
+    <!-- Performance Optimization: Removed heavy fixed gradient layers with blend modes -->
+    <!-- Replaced with simple body background color -->
+
+
+    <div class="relative flex min-h-screen w-full flex-col group/design-root">
+        <!-- Navigation -->
+        <header class="fixed top-0 left-0 right-0 z-50 glass-nav h-20 flex items-center justify-center px-4 md:px-10">
+            <div class="w-full max-w-7xl flex items-center justify-between">
+                <div class="flex items-center gap-2 text-white">
+                    <div class="size-8 text-primary">
+                        <span class="material-symbols-outlined text-3xl">restaurant_menu</span>
+                    </div>
+                    <h2 class="text-white text-xl font-bold tracking-tight">Tap2Serve</h2>
+                </div>
+                <nav class="hidden md:flex flex-1 justify-center gap-10">
+                    <a class="nav-link text-text-muted hover:text-white transition-colors text-sm font-medium"
+                        href="#features">Features</a>
+                    <a class="nav-link text-text-muted hover:text-white transition-colors text-sm font-medium"
+                        href="#how-it-works">How it Works</a>
+                    <a class="nav-link text-text-muted hover:text-white transition-colors text-sm font-medium"
+                        href="#pricing">Pricing</a>
+                    <a class="nav-link text-text-muted hover:text-white transition-colors text-sm font-medium"
+                        href="#testimonials">Testimonials</a>
+                    <a class="nav-link text-text-muted hover:text-white transition-colors text-sm font-medium"
+                        href="#about">About</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button id="openLogin"
+                        class="flex items-center gap-2 text-white hover:text-primary transition-colors text-sm font-medium">
+
+                        <span class="material-symbols-outlined md:hidden">
+                            login
+                        </span>
+
+                        <span class="hidden md:inline">
+                            Log in
+                        </span>
+                    </button>
+
+                    <button id="getStartedBtn"
+                        class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary hover:bg-white hover:text-black text-bg-deep text-sm font-bold transition-all duration-300 shadow-glow">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- Hero Section -->
+        <section
+            class="relative pt-32 pb-20 md:pt-40 md:pb-32 flex flex-col items-center justify-center overflow-hidden min-h-[90vh]">
+            <!-- Background Image with Overlay -->
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-b from-bg-deep/70 via-bg-deep/80 to-bg-deep z-10"></div>
+                <div class="w-full h-full bg-cover bg-center opacity-60 transform scale-105"
+                    alt="Luxurious dark restaurant interior with ambient lighting"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBBB-VgU789Y4yCZas55sB3hUwCgr_COI7gCu8Z_TlrZFKILkEoOrArz5k28lolfpu3L60cIh55pc_xePuKlvqeU3MO1n8cTo53yeO3XJ60PjHlTriV7fRFeQstrYpRHlitVkoQ7CB6EMZX5-N-C4FlUTvgvHVVhDnuF2uv8jzNVbv0slBeKXPic-GmnRk36Snl7fUfvq8A75xhMXMKvEv5hD4lh5Duqvb9T2YK6rE25l4jlD-wl8FeQM3y2RsbvQQGP3z4TKWW9PI");'>
+                </div>
+            </div>
+            <div class="relative z-20 w-full max-w-7xl px-4 flex flex-col items-center text-center">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 animate-fade-in">
+                    <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="text-xs font-medium text-primary tracking-wide uppercase">The New Standard in
+                        Dining</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl ag-morph font-black text-white leading-[1.1] tracking-tight mb-6 animate-fade-in max-w-5xl"
+                    style="animation-delay: 0.1s;">
+                    Elevate Your <br />
+                    <span class="gold-text-gradient">Dining Experience</span>
+                </h1>
+                <p class="text-lg md:text-xl text-text-muted max-w-2xl mb-10 leading-relaxed animate-fade-in"
+                    style="animation-delay: 0.2s;">
+                    The smart dining platform for modern, luxury restaurants. Seamlessly integrate ordering, payments,
+                    and analytics into one premium interface.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 animate-fade-in" style="animation-delay: 0.3s;">
+                    <button id="trialBtn"
+                        class="flex items-center justify-center rounded-lg h-12 px-8 bg-primary hover:bg-white text-bg-deep text-base font-bold transition-all duration-300 shadow-glow hover:shadow-glow-hover ag-magnetic">
+                        Start Free Trial
+                    </button>
+                    <button id="demoBtn"
+                        class="flex items-center justify-center rounded-lg h-12 px-8 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-base font-bold transition-all duration-300 backdrop-blur-sm group ag-magnetic">
+                        <span
+                            class="mr-2 material-symbols-outlined text-primary group-hover:scale-110 transition-transform">play_circle</span>
+                        Watch Demo
+                    </button>
+                </div>
+                <!-- Dashboard Preview (Abstract Representation) -->
+                <div class="mt-20 w-full max-w-5xl relative animate-fade-in" style="animation-delay: 0.5s;">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-primary to-transparent opacity-20 blur-xl rounded-xl">
+                    </div>
+                    <div
+                        class="relative rounded-xl border border-white/10 bg-bg-soft/50 backdrop-blur-xl overflow-hidden shadow-2xl aspect-[16/9]">
+                        <img class="w-full h-full object-cover opacity-80"
+                            alt="Abstract sleek analytics dashboard showing growth charts on a dark background"
+                            loading="lazy"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHUrRwZCQ7HtYE0MPpnUytb-CxTQ1nB8HDrGj-SVAJrC7eRi1ctyYylt7A_yzL_3v15kkYB0uEpP87xImRfL6hjRko1yOzJ03lm0-aifjrgc_VvTpNtUMaJD997xSZZMzBQ9BDfz7l33wVLmA_MRzMV_P0jXM9NQtwNMAaI5bSNp_b6il9maUMeowlFgvUSZEdLgsPtdAQPqEhsqo50nbXC1M3JOcnS0wvMuyScDucOls3EBKlBSaVwQRnNNrHfuN7bd72Sv2499U" />
+                        <!-- Overlay UI Mockup Elements -->
+                        <div
+                            class="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
+                            <div class="bg-black/40 absolute inset-0"></div>
+                            <h3 class="relative text-white/20 text-4xl font-black uppercase tracking-widest">Dashboard
+                                Interface</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Social Proof -->
+        <section class="py-10 border-y border-white/5 bg-bg-soft">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <p class="text-sm text-text-muted mb-8 uppercase tracking-widest">Trusted by world-class establishments
+                </p>
+                <div
+                    class="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                    <!-- Text based logos for demo purposes -->
+                    <span class="text-xl font-serif font-bold text-white">The Ritz-Carlton</span>
+                    <span class="text-xl font-serif font-bold text-white tracking-widest">MARRIOTT</span>
+                    <span class="text-xl font-serif font-bold text-white">FOUR SEASONS</span>
+                    <span class="text-xl font-serif font-bold text-white tracking-widest">HAYATT</span>
+                    <span class="text-xl font-serif font-bold text-white">SHERATON</span>
+                </div>
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section class="py-24 bg-bg-deep relative overflow-hidden" id="features">
+            <!-- Background Glow -->
+            <div
+                class="absolute top-1/4 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none">
+            </div>
+            <div class="max-w-7xl mx-auto px-4 flex flex-col gap-16">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-6">
+                    <div class="flex flex-col gap-4 max-w-2xl">
+                        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight">Premium Features</h2>
+                        <p class="text-text-muted text-lg">Experience the future of dining with our luxury suite of
+                            tools designed for efficiency and elegance.</p>
+                    </div>
+                    <button id="viewAllFeaturesBtn"
+                        class="text-primary hover:text-white font-medium flex items-center gap-2 transition-colors">
+                        View all features <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Feature 1 -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-8 card-hover-effect hover:border-primary/30">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">restaurant</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Contactless Ordering</h3>
+                            <p class="text-text-muted leading-relaxed">Seamless ordering experience for guests directly
+                                from their table, without interruption to conversation.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-8 card-hover-effect hover:border-primary/30">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">monitoring</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Real-time Analytics</h3>
+                            <p class="text-text-muted leading-relaxed">Track performance metrics, sales velocity, and
+                                inventory in real-time with our sophisticated dashboard.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-8 card-hover-effect hover:border-primary/30">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">diamond</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">White-Glove Support</h3>
+                            <p class="text-text-muted leading-relaxed">24/7 dedicated priority support for your team to
+                                ensure operations never skip a beat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+    <!-- How It Works (Timeline) -->
+    <section class="py-24 bg-bg-soft" id="how-it-works">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Effortless Workflow</h2>
+                <p class="text-text-muted">Designed for simplicity without compromising sophistication.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-[16%] right-[16%] h-[2px] bg-white/10 z-0"></div>
+                <!-- Step 1 -->
+                <div class="relative z-10 flex flex-col items-center text-center gap-6 group">
+                    <div
+                        class="size-24 rounded-full bg-bg-deep border-2 border-white/10 flex items-center justify-center shadow-lg group-hover:border-primary transition-colors duration-500">
+                        <span
+                            class="material-symbols-outlined text-white text-4xl group-hover:text-primary transition-colors">qr_code_scanner</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="text-primary font-bold tracking-widest text-xs uppercase">Step 01</span>
+                        <h3 class="text-xl font-bold text-white">Scan QR Code</h3>
+                        <p class="text-text-muted text-sm max-w-[250px]">Guests simply scan the elegant QR code
+                            placed on the table.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative z-10 flex flex-col items-center text-center gap-6 group">
+                    <div
+                        class="size-24 rounded-full bg-bg-deep border-2 border-white/10 flex items-center justify-center shadow-lg group-hover:border-primary transition-colors duration-500 delay-100">
+                        <span
+                            class="material-symbols-outlined text-white text-4xl group-hover:text-primary transition-colors">touch_app</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="text-primary font-bold tracking-widest text-xs uppercase">Step 02</span>
+                        <h3 class="text-xl font-bold text-white">Browse Smart Menu</h3>
+                        <p class="text-text-muted text-sm max-w-[250px]">An intuitive, visual menu allows guests to
+                            customize orders easily.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative z-10 flex flex-col items-center text-center gap-6 group">
+                    <div
+                        class="size-24 rounded-full bg-bg-deep border-2 border-white/10 flex items-center justify-center shadow-lg group-hover:border-primary transition-colors duration-500 delay-200">
+                        <span
+                            class="material-symbols-outlined text-white text-4xl group-hover:text-primary transition-colors">credit_card</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="text-primary font-bold tracking-widest text-xs uppercase">Step 03</span>
+                        <h3 class="text-xl font-bold text-white">Pay Instantly</h3>
+                        <p class="text-text-muted text-sm max-w-[250px]">Secure, one-tap payment processing with
+                            split bill functionality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Use Cases (Image Grid) -->
+    <section class="py-24 bg-bg-deep">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col gap-4 mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight">Tailored for Every Setting</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Item 1 -->
+                <div class="relative group rounded-xl overflow-hidden h-64 md:h-96 md:col-span-2 lg:col-span-2">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10">
+                    </div>
+                    <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                        alt="Fine dining restaurant interior with white tablecloths" loading="lazy"
+                        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" />
+                    <div class="absolute bottom-0 left-0 p-6 z-20">
+                        <h3 class="text-white text-2xl font-bold mb-1">Fine Dining</h3>
+                        <p
+                            class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                            Elegant service without intrusion.</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="relative group rounded-xl overflow-hidden h-64 md:h-96">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10">
+                    </div>
+                    <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                        alt="Upscale modern bar lounge with cocktails" loading="lazy"
+                        src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop" />
+                    <div class="absolute bottom-0 left-0 p-6 z-20">
+                        <h3 class="text-white text-xl font-bold mb-1">Lounge &amp; Bar</h3>
+                        <p
+                            class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                            Seamless transitions from day to night.</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="relative group rounded-xl overflow-hidden h-64 md:h-96">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500 z-10">
+                    </div>
+                    <img class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                        alt="Luxury hotel rooftop dining area" loading="lazy"
+                        src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=800&auto=format&fit=crop" />
+                    <div class="absolute bottom-0 left-0 p-6 z-20">
+                        <h3 class="text-white text-xl font-bold mb-1">Hotel Dining</h3>
+                        <p
+                            class="text-white/80 text-sm opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                            Consistent experience across multiple venues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Seamless Ecosystem (Integrations) -->
+    <section class="py-16 md:py-24 bg-bg-soft relative overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12 mb-16">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Seamless Ecosystem</h2>
+                    <p class="text-text-muted text-lg">
+                        Tap2Serve plays perfectly with the tools you already rely on.
+                        From delivery giants to accounting software, we connect the dots.
+                    </p>
+                </div>
+                <a href="#"
+                    class="group flex items-center gap-3 text-white font-medium px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all">
+                    View Marketplace
+                    <span
+                        class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+            </div>
+
+            <!-- Integration Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- Item 1 -->
+                <div
+                    class="flex items-center justify-center p-8 rounded-2xl bg-bg-deep border border-white/5 hover:border-primary/30 hover:shadow-glow transition-all duration-300 group">
+                    <span
+                        class="material-symbols-outlined text-4xl text-white/50 group-hover:text-white transition-colors">local_shipping</span>
+                    <!-- In real usage replace icons with svg logos -->
+                </div>
+                <!-- Item 2 -->
+                <div
+                    class="flex items-center justify-center p-8 rounded-2xl bg-bg-deep border border-white/5 hover:border-primary/30 hover:shadow-glow transition-all duration-300 group">
+                    <span
+                        class="material-symbols-outlined text-4xl text-white/50 group-hover:text-white transition-colors">credit_card</span>
+                </div>
+                <!-- Item 3 -->
+                <div
+                    class="flex items-center justify-center p-8 rounded-2xl bg-bg-deep border border-white/5 hover:border-primary/30 hover:shadow-glow transition-all duration-300 group">
+                    <span
+                        class="material-symbols-outlined text-4xl text-white/50 group-hover:text-white transition-colors">account_balance_wallet</span>
+                </div>
+                <!-- Item 4 -->
+                <div
+                    class="flex items-center justify-center p-8 rounded-2xl bg-bg-deep border border-white/5 hover:border-primary/30 hover:shadow-glow transition-all duration-300 group">
+                    <span
+                        class="material-symbols-outlined text-4xl text-white/50 group-hover:text-white transition-colors">percent</span>
+                </div>
+                <!-- Item 5 -->
+                <div
+                    class="flex items-center justify-center p-8 rounded-2xl bg-bg-deep border border-white/5 hover:border-primary/30 hover:shadow-glow transition-all duration-300 group">
+                    <span
+                        class="material-symbols-outlined text-4xl text-white/50 group-hover:text-white transition-colors">calendar_month</span>
+                </div>
+                <!-- Item 6: "And More" -->
+                <div
+                    class="flex items-center justify-center p-8 rounded-2xl bg-gradient-to-br from-primary/10 to-bg-deep border border-primary/20 group">
+                    <span class="text-primary font-bold text-lg">+40 More</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- NEW: Impact & ROI (Stats) -->
+    <section class="py-16 md:py-24 bg-bg-deep relative overflow-hidden">
+        <!-- Background Texture -->
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: radial-gradient(#c9a24d 1px, transparent 1px); background-size: 40px 40px;">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-primary font-bold tracking-widest text-xs uppercase mb-3 block">Proven
+                    Results</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-white">Impact by the Numbers</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Stat 1 -->
+                <div
+                    class="p-8 rounded-2xl bg-bg-soft border border-white/5 text-center group hover:border-primary/30 transition-colors">
+                    <div class="text-5xl font-black text-white mb-2 group-hover:text-primary transition-colors">
+                        30%
+                    </div>
+                    <p class="text-white font-bold text-lg mb-2">Faster Table Turnover</p>
+                    <p class="text-text-muted text-sm">Streamlined ordering means guests get served quicker.</p>
+                </div>
+                <!-- Stat 2 -->
+                <div
+                    class="p-8 rounded-2xl bg-bg-soft border border-white/5 text-center group hover:border-primary/30 transition-colors">
+                    <div class="text-5xl font-black text-white mb-2 group-hover:text-primary transition-colors">
+                        25%
+                    </div>
+                    <p class="text-white font-bold text-lg mb-2">Higher Check Size</p>
+                    <p class="text-text-muted text-sm">Visual menus encourage impulse upsells and desserts.</p>
+                </div>
+                <!-- Stat 3 -->
+                <div
+                    class="p-8 rounded-2xl bg-bg-soft border border-white/5 text-center group hover:border-primary/30 transition-colors">
+                    <div class="text-5xl font-black text-white mb-2 group-hover:text-primary transition-colors">
+                        Zero
+                    </div>
+                    <p class="text-white font-bold text-lg mb-2">Payment Errors</p>
+                    <p class="text-text-muted text-sm">Integrated payments eliminate manual entry mistakes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Guest Experience (Mobile Visual) -->
+    <section class="py-16 md:py-24 bg-bg-soft relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Text Side -->
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Designed for <br /> <span
+                            class="text-primary">Pure Delight.</span></h2>
+                    <p class="text-text-muted text-lg mb-8 leading-relaxed">
+                        Your guests focus on the conversation, not waving down servers.
+                        Our interface is intuitive, beautiful, and completely frictionless.
+                        No app download required.
+                    </p>
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-primary text-2xl mt-1">check_circle</span>
+                            <div>
+                                <h4 class="text-white font-bold">Instant Access</h4>
+                                <p class="text-text-muted text-sm">Scan QR and order immediately.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="material-symbols-outlined text-primary text-2xl mt-1">check_circle</span>
+                            <div>
+                                <h4 class="text-white font-bold">Split Bills Easily</h4>
+                                <p class="text-text-muted text-sm">Guests can pay their share in seconds.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Side (Simple CSS Phone Mockup) -->
+                <div class="order-1 lg:order-2 flex justify-center perspective-1000">
+                    <div
+                        class="relative w-[260px] h-[520px] md:w-[300px] md:h-[600px] bg-black rounded-[30px] md:rounded-[40px] border-[6px] md:border-[8px] border-bg-deep shadow-2xl overflow-hidden transform rotate-y-12 rotate-x-6 hover:rotate-0 transition-transform duration-700">
+                        <!-- Screen Content (Simulated) -->
+                        <div class="absolute inset-0 bg-bg-soft flex flex-col">
+                            <!-- Header -->
+                            <div class="h-16 bg-bg-deep flex items-center justify-between px-4">
+                                <span class="material-symbols-outlined text-white">menu</span>
+                                <span class="text-white font-bold">L'Anima Menu</span>
+                                <span class="material-symbols-outlined text-white">shopping_bag</span>
+                            </div>
+                            <!-- Hero Item -->
+                            <div class="h-48 bg-cover bg-center"
+                                style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=500');">
+                            </div>
+                            <!-- Items -->
+                            <div class="p-4 space-y-4">
+                                <div class="h-4 w-1/2 bg-white/10 rounded"></div>
+                                <div class="h-20 bg-white/5 rounded-xl border border-white/5 p-2 flex gap-2">
+                                    <div class="aspect-square h-full bg-white/10 rounded-lg"></div>
+                                    <div class="flex-1 space-y-2">
+                                        <div class="h-3 w-3/4 bg-white/10 rounded"></div>
+                                        <div class="h-3 w-1/2 bg-white/10 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add to Cart (Bottom) -->
+                            <div class="mt-auto m-4 p-4 bg-primary rounded-xl text-center font-bold text-bg-deep">
+                                Add to Order - ₹1,200
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- NEW: Kitchen Symphony (KDS) -->
+    <section class="py-16 md:py-32 bg-black relative overflow-hidden">
+        <!-- Cyberpunk Grid -->
+        <div class="absolute inset-0 opacity-20"
+            style="background-image: linear-gradient(rgba(201, 162, 77, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 162, 77, 0.1) 1px, transparent 1px); background-size: 50px 50px;">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-20">
+                <span class="text-primary font-bold tracking-[0.2em] text-sm uppercase mb-3 block glow-text">Mission
+                    Control</span>
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Orchestrate the Kitchen.</h2>
+                <p class="text-text-muted text-xl max-w-2xl mx-auto">
+                    The first Kitchen Display System that thinks like a Chef. <br class="hidden md:block" />
+                    Real-time synchronization, color-coded urgency, and silent alerts.
+                </p>
+            </div>
+
+            <!-- KDS Mockup -->
+            <div
+                class="rounded-3xl border-4 border-bg-deep shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden bg-bg-deep">
+                <div class="flex items-center justify-between px-6 py-4 bg-[#1a1a1a] border-b border-white/5">
+                    <div class="flex items-center gap-3">
+                        <span class="size-3 rounded-full bg-red-500 animate-pulse"></span>
+                        <span class="text-white font-mono text-sm tracking-wide">LIVE // SERVICE ACTIVE</span>
+                    </div>
+                    <div class="font-mono text-primary font-bold">AVG TICKET: 12m 30s</div>
+                </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 h-[300px] md:h-[400px] overflow-y-auto font-mono text-sm">
+                    <!-- Ticket 1 -->
+                    <div
+                        class="bg-[#222] border-l-4 border-green-500 p-4 rounded text-white hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+                        <div class="flex justify-between mb-2"><span class="font-bold">#42 • Table 7</span> <span
+                                class="text-xs text-text-muted">2m ago</span></div>
+                        <ul class="space-y-1">
+                            <li>1x Truffle Risotto</li>
+                            <li>1x Wagyu Slider</li>
+                        </ul>
+                    </div>
+                    <!-- Ticket 2 -->
+                    <div
+                        class="bg-[#222] border-l-4 border-yellow-500 p-4 rounded text-white hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+                        <div class="flex justify-between mb-2"><span class="font-bold">#41 • Table 3</span> <span
+                                class="text-xs text-text-muted">9m ago</span></div>
+                        <ul class="space-y-1">
+                            <li>2x Lobster Bisque</li>
+                            <li class="text-yellow-500 font-bold">! NO DAIRY</li>
+                        </ul>
+                    </div>
+                    <!-- Ticket 3 -->
+                    <div
+                        class="bg-[#2a2222] border-l-4 border-red-500 p-4 rounded text-white shadow-[0_0_15px_rgba(239,68,68,0.1)] animate-pulse">
+                        <div class="flex justify-between mb-2"><span class="font-bold">#40 • Table 12</span> <span
+                                class="text-xs text-text-muted">18m ago</span></div>
+                        <ul class="space-y-1">
+                            <li>1x Sea Bass</li>
+                            <li>1x Vintage Champagne</li>
+                        </ul>
+                    </div>
+                    <!-- Analysis Panel -->
+                    <div
+                        class="bg-[#151515] border border-white/10 p-4 rounded text-center flex flex-col justify-center gap-2">
+                        <span class="material-symbols-outlined text-4xl text-primary">analytics</span>
+                        <div class="text-xs uppercase text-text-muted tracking-widest">Efficiency Score</div>
+                        <div class="text-3xl font-bold text-white">98.4%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Global Pulse (Map) -->
+    <section class="py-16 md:py-24 bg-bg-deep relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
+            <div>
+                <span class="text-primary font-bold tracking-widest text-xs uppercase mb-3 block">Global
+                    Reach</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Powering Venues <br />Across 12
+                    Countries.</h2>
+                <p class="text-text-muted text-lg mb-8">
+                    From Michelin-starred bistros in Paris to rooftop lounges in Dubai, Tap2Serve is the silent
+                    engine behind the world's best hospitality.
+                </p>
+
+                <div class="flex gap-8">
+                    <div>
+                        <div class="text-3xl font-bold text-white mb-1">500+</div>
+                        <div class="text-xs uppercase text-text-muted">Active Venues</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-white mb-1">2.5M</div>
+                        <div class="text-xs uppercase text-text-muted">Orders Processed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abstract Map Visualization -->
+            <div
+                class="relative h-[300px] md:h-[400px] w-full bg-[#111] rounded-full opacity-80 flex items-center justify-center border border-white/5 overflow-hidden">
+                <!-- "Globe" lines -->
+                <div class="absolute inset-0 rounded-full border border-white/5 animate-[spin_60s_linear_infinite]">
+                </div>
+                <div
+                    class="absolute inset-4 rounded-full border border-white/5 animate-[spin_40s_linear_infinite_reverse]">
+                </div>
+                <div class="absolute inset-12 rounded-full border border-white/5 animate-[spin_30s_linear_infinite]">
+                </div>
+
+                <!-- Glowing dots (Cities) -->
+                <div
+                    class="absolute top-[30%] left-[20%] size-2 bg-primary rounded-full shadow-[0_0_10px_#c9a24d] animate-ping">
+                </div> <!-- NY -->
+                <div
+                    class="absolute top-[40%] left-[48%] size-2 bg-primary rounded-full shadow-[0_0_10px_#c9a24d] animate-ping delay-700">
+                </div> <!-- Paris -->
+                <div
+                    class="absolute top-[50%] left-[65%] size-2 bg-primary rounded-full shadow-[0_0_10px_#c9a24d] animate-ping delay-300">
+                </div> <!-- Dubai -->
+                <div
+                    class="absolute top-[60%] left-[80%] size-2 bg-primary rounded-full shadow-[0_0_10px_#c9a24d] animate-ping delay-500">
+                </div> <!-- Singapore -->
+
+                <span class="absolute text-white/10 font-black text-6xl md:text-9xl select-none z-0">WORLD</span>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Pricing -->
+    <section class="py-24 bg-bg-soft relative" id="pricing">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Transparent Pricing</h2>
+                <p class="text-text-muted">Choose the plan that fits your establishment's scale.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Starter Plan -->
+                <div
+                    class="rounded-2xl bg-bg-deep border border-white/5 p-8 flex flex-col gap-6 hover:border-white/20 transition-colors">
+                    <div>
+                        <h3 class="text-xl font-medium text-white">Starter</h3>
+                        <div class="mt-4 flex items-baseline gap-1">
+                            <span class="text-4xl font-bold text-white">₹999</span>
+                            <span class="text-text-muted">/mo</span>
+                        </div>
+                        <p class="mt-4 text-text-muted text-sm">Perfect for small boutique restaurants.</p>
+                    </div>
+                    <ul class="flex flex-col gap-3">
+                        <li class="flex items-center gap-3 text-sm text-text-muted">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Digital Menu
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-text-muted">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Basic Analytics
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-text-muted">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Email Support
+                        </li>
+                    </ul>
+                    <button onclick="upgradePlan('Standard')"
+                        class="w-full py-3 rounded-lg border border-white/10 hover:bg-white/5 text-white font-medium transition-colors">Choose
+                        Starter</button>
+                </div>
+                <!-- Pro Plan (Featured) -->
+                <div
+                    class="relative rounded-2xl bg-[#151515] border border-primary/50 p-8 flex flex-col gap-6 shadow-glow transform scale-105 z-10">
+                    <div
+                        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                        Most Popular</div>
+                    <div>
+                        <h3 class="text-xl font-medium text-white">Professional</h3>
+                        <div class="mt-4 flex items-baseline gap-1">
+                            <span class="text-4xl font-bold text-white">₹1999</span>
+                            <span class="text-text-muted">/mo</span>
+                        </div>
+                        <p class="mt-4 text-text-muted text-sm">For established venues demanding excellence.</p>
+                    </div>
+                    <ul class="flex flex-col gap-3">
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Advanced Analytics
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Priority 24/7 Support
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Inventory Management
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Custom Branding
+                        </li>
+                    </ul>
+                    <button onclick="upgradePlan('Premium')"
+                        class="w-full py-3 rounded-lg bg-primary hover:bg-white hover:text-black text-black font-bold transition-all shadow-lg">Get
+                        Professional</button>
+                </div>
+                <!-- Enterprise Plan -->
+                <div
+                    class="rounded-2xl bg-bg-deep border border-white/5 p-8 flex flex-col gap-6 hover:border-white/20 transition-colors">
+                    <div>
+                        <h3 class="text-xl font-medium text-white">Enterprise</h3>
+                        <div class="mt-4 flex items-baseline gap-1">
+                            <span class="text-4xl font-bold text-white">₹3500-5000</span>
+                        </div>
+                        <p class="mt-4 text-text-muted text-sm">Tailored solutions for hotel chains &amp; groups.
+                        </p>
+                    </div>
+                    <ul class="flex flex-col gap-3">
+                        <li class="flex items-center gap-3 text-sm text-text-muted">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Dedicated Account Manager
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-text-muted">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Multi-location Control
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-text-muted">
+                            <span class="material-symbols-outlined text-primary text-base">check</span>
+                            Custom API Access
+                        </li>
+                    </ul>
+                    <button
+                        class="contact-sales-trigger w-full py-3 rounded-lg border border-white/10 hover:bg-white/5 text-white font-medium transition-colors">Contact
+                        Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials -->
+    <section class="py-24 bg-bg-deep" id="testimonials">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span class="text-primary text-6xl font-serif">"</span>
+            <h3 class="text-2xl md:text-4xl font-medium text-white leading-relaxed mb-8">
+                Tap2Serve has completely transformed our service flow. The elegance of the interface matches the
+                standard of our dining room perfectly.
+            </h3>
+            <div class="flex flex-col items-center gap-2">
+                <div class="size-16 rounded-full overflow-hidden mb-2 border-2 border-primary/30">
+                    <img class="w-full h-full object-cover" alt="Portrait of Sonu, a satisfied customer" loading="lazy"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_9L9DaQbbV3kz1ZQH8HxdZmWrVvzdQgBrySPvfAUjrAOj3J9UxQRscYeI8NSB5CwUCoOME5j130PsOYbAlFdADfgXza6EVILM21lhEPLFwpr9ZqX2YY0J1DhkPapVjCdKMXVgJMiNMSzjOf-WkiXC9VL5fo9PRcjnfiIcU60THdbA7uB2AZbT_JaECyfY_okn61jkwTys4lQilO2RctMyhNASbH0gNXBjciBw8IjZ5d4kBvPm_kvLf9Wsl_W78MIqmA9JCtJ-E-c" />
+                </div>
+                <p class="text-white font-bold text-lg">Marco Rossi</p>
+                <p class="text-text-muted text-sm">Executive Chef, L'Anima</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: FAQ Section -->
+    <section class="py-16 md:py-24 bg-bg-deep border-t border-white/5">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+                <p class="text-text-muted">Everything you need to know about setting up.</p>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <!-- Question 1 -->
+                <details
+                    class="group bg-bg-soft rounded-2xl border border-white/5 open:border-primary/30 transition-all duration-300">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="text-lg font-medium text-white group-hover:text-primary transition-colors">How
+                            long does implementation take?</h3>
+                        <span
+                            class="material-symbols-outlined text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-text-muted leading-relaxed">
+                        Typically, we can get your menu digitized and hardware shipped within 7-10 business days.
+                        Our onboarding team handles the heavy lifting, including menu entry and staff training.
+                    </div>
+                </details>
+
+                <!-- Question 2 -->
+                <details
+                    class="group bg-bg-soft rounded-2xl border border-white/5 open:border-primary/30 transition-all duration-300">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="text-lg font-medium text-white group-hover:text-primary transition-colors">Can I
+                            use my own iPad?</h3>
+                        <span
+                            class="material-symbols-outlined text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-text-muted leading-relaxed">
+                        Yes! Tap2Serve is compatible with most modern iOS and Android tablets. However, for the best
+                        reliability and the "Offline Mode" feature, we recommend our dedicated hardware suite.
+                    </div>
+                </details>
+
+                <!-- Question 3 -->
+                <details
+                    class="group bg-bg-soft rounded-2xl border border-white/5 open:border-primary/30 transition-all duration-300">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                        <h3 class="text-lg font-medium text-white group-hover:text-primary transition-colors">Is
+                            there a contract?</h3>
+                        <span
+                            class="material-symbols-outlined text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-text-muted leading-relaxed">
+                        Our Starter and Professional plans are month-to-month with no long-term commitment.
+                        Enterprise plans typically involve an annual agreement to unlock custom development and
+                        lower processing rates.
+                    </div>
+                </details>
+            </div>
+
+            <!-- Question 4 -->
+            <details
+                class="group bg-bg-soft rounded-2xl border border-white/5 open:border-primary/30 transition-all duration-300">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="text-lg font-medium text-white group-hover:text-primary transition-colors">What
+                        happens if my internet goes down?</h3>
+                    <span
+                        class="material-symbols-outlined text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+                </summary>
+                <div class="px-6 pb-6 text-text-muted leading-relaxed">
+                    Tap2Serve includes a robust "Offline Mode". Your POS terminals will continue to process orders
+                    and print tickets. Data syncs automatically once connectivity is restored, ensuring zero
+                    downtime.
+                </div>
+            </details>
+
+            <!-- Question 5 -->
+            <details
+                class="group bg-bg-soft rounded-2xl border border-white/5 open:border-primary/30 transition-all duration-300">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="text-lg font-medium text-white group-hover:text-primary transition-colors">Can I
+                        manage multiple locations?</h3>
+                    <span
+                        class="material-symbols-outlined text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+                </summary>
+                <div class="px-6 pb-6 text-text-muted leading-relaxed">
+                    Absolutely. Our Enterprise dashboard allows you to toggle between locations, push menu updates
+                    to all venues simultaneously, and view aggregated sales reports from a single login.
+                </div>
+            </details>
+
+            <!-- Question 6 -->
+            <details
+                class="group bg-bg-soft rounded-2xl border border-white/5 open:border-primary/30 transition-all duration-300">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="text-lg font-medium text-white group-hover:text-primary transition-colors">Do you
+                        integrate with delivery apps?</h3>
+                    <span
+                        class="material-symbols-outlined text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+                </summary>
+                <div class="px-6 pb-6 text-text-muted leading-relaxed">
+                    Yes, we have direct integrations with major delivery platforms like UberEats, DoorDash, and
+                    Zomato. Orders from these platforms appear directly on your KDS, eliminating double entry.
+                </div>
+            </details>
+
+            <!-- Question 7 -->
+            <details
+                class="group bg-bg-soft rounded-2xl border border-white/5 open:border-primary/30 transition-all duration-300">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="text-lg font-medium text-white group-hover:text-primary transition-colors">Is payment
+                        processing secure?</h3>
+                    <span
+                        class="material-symbols-outlined text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+                </summary>
+                <div class="px-6 pb-6 text-text-muted leading-relaxed">
+                    We use PCI-DSS Level 1 compliant processing for all transactions. Customer card data is
+                    end-to-end encrypted and never stored on your local devices, ensuring maximum security.
+                </div>
+            </details>
+        </div>
+        </div>
+    </section>
+    <!-- Final CTA -->
+    <section class="py-24 bg-bg-soft relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to elevate your service?</h2>
+            <p class="text-text-muted text-lg mb-10">Join the world's most exclusive venues using Tap2Serve today.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button
+                    class="flex items-center justify-center rounded-lg h-14 px-8 bg-primary hover:bg-white text-bg-deep text-lg font-bold transition-all duration-300 shadow-glow">
+                    Get Started Now
+                </button>
+                <button id="contactSalesBtn"
+                    class="contact-sales-trigger flex items-center justify-center rounded-lg h-14 px-8 bg-transparent border border-white/20 hover:bg-white/5 text-white text-lg font-medium transition-all duration-300">
+                    Contact Sales
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-bg-deep border-t border-white/5 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 text-white mb-6">
+                        <span class="material-symbols-outlined text-primary">restaurant_menu</span>
+                        <span class="font-bold">Tap2Serve</span>
+                    </div>
+                    <p class="text-text-muted text-sm leading-relaxed">The premier dining operating system for
+                        modern hospitality.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Product</h4>
+                    <ul class="flex flex-col gap-2">
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors"
+                                href="#">Features</a></li>
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors" href="#">Pricing</a>
+                        </li>
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors"
+                                href="#">Hardware</a></li>
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors"
+                                href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="flex flex-col gap-2">
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors" href="#">About
+                                Us</a></li>
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors" href="#">Careers</a>
+                        </li>
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors" href="#">Blog</a>
+                        </li>
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="flex flex-col gap-2">
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors" href="#">Privacy
+                                Policy</a></li>
+                        <li><a class="text-text-muted text-sm hover:text-primary transition-colors" href="#">Terms
+                                of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-text-muted text-sm">© 2023 Tap2Serve Inc. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a class="text-text-muted hover:text-white" href="#"><i
+                            class="material-symbols-outlined text-lg">public</i></a>
+                    <a class="text-text-muted hover:text-white" href="#"><i
+                            class="material-symbols-outlined text-lg">mail</i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <script>
+        /* ======================================
+           ANTIGRAVITY SCROLL ENGINE (SAFE)
+        ====================================== */
+
+        const isMobile = window.innerWidth < 768;
+
+        /* ---------- HERO DEPTH ---------- */
+        const heroTitle = document.querySelector("section h1");
+        const heroSub = document.querySelector("section h1 + p");
+        const heroBg = document.querySelector("section [style*='background-image']");
+
+        window.addEventListener("scroll", () => {
+            const y = window.scrollY;
+
+            if (!isMobile && heroTitle) {
+                heroTitle.style.transform =
+                    `scale(${1 - y * 0.00025}) translateY(${y * 0.08}px)`;
+                heroTitle.style.opacity = `${1 - y * 0.0015}`;
+            }
+
+            if (heroSub) {
+                heroSub.style.opacity = Math.min(1, y / 220);
+                heroSub.style.transform = `translateY(${Math.max(0, 40 - y * 0.2)}px)`;
+            }
+
+            if (heroBg && !isMobile) {
+                heroBg.style.transform = `scale(1.08) translateY(${y * 0.05}px)`;
+            }
+        });
+
+        /* ---------- SECTION REVEAL ---------- */
+        const revealTargets = document.querySelectorAll(
+            "section h2, section h3, section p, .card-hover-effect, section img"
+        );
+
+        revealTargets.forEach(el => {
+            el.classList.add("ag-hidden", "ag-depth");
+        });
+
+        const revealObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("ag-visible");
+                    }
+                });
+            },
+            { threshold: 0.15 }
+        );
+
+        revealTargets.forEach(el => revealObserver.observe(el));
+
+        /* ---------- CARD DEPTH (ANTIGRAVITY FEEL) ---------- */
+        document.querySelectorAll(".card-hover-effect").forEach(card => {
+            card.addEventListener("mousemove", e => {
+                if (isMobile) return;
+
+                const r = card.getBoundingClientRect();
+                const x = e.clientX - r.left - r.width / 2;
+                const y = e.clientY - r.top - r.height / 2;
+
+                card.style.transform =
+                    `translateY(-6px) rotateX(${-(y / 18)}deg) rotateY(${x / 18}deg)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "translateY(0) rotateX(0) rotateY(0)";
+            });
+        });
+    </script>
+    <script>
+        /* ======================================
+           ANTIGRAVITY LEVEL 2 ENGINE
+        ====================================== */
+
+        const isMobileAG = window.innerWidth < 768;
+        const scenes = document.querySelectorAll("section");
+
+        scenes.forEach(s => s.classList.add("ag-scene", "ag-cinematic"));
+
+        window.addEventListener("scroll", () => {
+            const vh = window.innerHeight;
+
+            scenes.forEach(scene => {
+                const rect = scene.getBoundingClientRect();
+                const progress = 1 - Math.abs(rect.top) / vh;
+
+                if (!isMobileAG) {
+                    scene.style.opacity = Math.max(0.4, progress);
+                    scene.style.transform =
+                        `scale(${0.94 + progress * 0.06}) translateY(${rect.top * 0.05}px)`;
+                }
+            });
+        });
+
+        /* ---------- HERO PIN FEEL ---------- */
+        const hero = document.querySelector("section");
+        let heroLocked = false;
+
+        window.addEventListener("scroll", () => {
+            if (isMobileAG || !hero) return;
+
+            const rect = hero.getBoundingClientRect();
+            if (rect.bottom > window.innerHeight && rect.top <= 0) {
+                heroLocked = true;
+                hero.style.transform = "scale(0.96)";
+            } else {
+                heroLocked = false;
+            }
+        });
+
+        /* ---------- NAVBAR FLOAT ---------- */
+        const nav = document.querySelector("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 40) {
+                nav.style.transform = "translateY(0)";
+                nav.style.opacity = "1";
+            } else {
+                nav.style.transform = "translateY(-10px)";
+                nav.style.opacity = "0.85";
+            }
+        });
+    </script>
+    <script>
+        /* ======================================
+           ANTIGRAVITY PRO ENGINE
+        ====================================== */
+
+        const isMobilePRO = window.innerWidth < 768;
+
+        /* ---------- HERO PIN + MORPH ---------- */
+        const heroSection = document.querySelector("section");
+        const heroTitlePRO = heroSection.querySelector("h1");
+
+        window.addEventListener("scroll", () => {
+            if (isMobilePRO) return;
+
+            const rect = heroSection.getBoundingClientRect();
+            const progress = Math.min(1, Math.max(0, -rect.top / window.innerHeight));
+
+            heroTitlePRO.style.transform =
+                `scale(${1 - progress * 0.15}) translateY(${progress * 80}px)`;
+            heroTitlePRO.style.letterSpacing = `${progress * 6}px`;
+            heroTitlePRO.style.opacity = `${1 - progress * 0.6}`;
+        });
+
+        /* ---------- SECTION MEMORY BLUR ---------- */
+        const allSections = document.querySelectorAll("section");
+
+        window.addEventListener("scroll", () => {
+            if (isMobilePRO) return;
+
+            allSections.forEach(sec => {
+                const r = sec.getBoundingClientRect();
+                if (r.bottom < window.innerHeight * 0.2) {
+                    sec.style.filter = "blur(2px)";
+                    sec.style.opacity = "0.4";
+                } else {
+                    sec.style.filter = "blur(0)";
+                    sec.style.opacity = "1";
+                }
+            });
+        });
+
+        /* ---------- MAGNETIC BUTTONS ---------- */
+        document.querySelectorAll(".ag-magnetic").forEach(btn => {
+            btn.addEventListener("mousemove", e => {
+                if (isMobilePRO) return;
+
+                const r = btn.getBoundingClientRect();
+                const x = e.clientX - r.left - r.width / 2;
+                const y = e.clientY - r.top - r.height / 2;
+
+                btn.style.transform =
+                    `translate(${x * 0.25}px, ${y * 0.25}px)`;
+            });
+
+            btn.addEventListener("mouseleave", () => {
+                btn.style.transform = "translate(0,0)";
+            });
+        });
+
+        /* ---------- LIGHT SWEEP PASS ---------- */
+        document.querySelectorAll("section").forEach(sec => {
+            sec.classList.add("ag-light");
+            window.addEventListener("scroll", () => {
+                const r = sec.getBoundingClientRect();
+                if (r.top < window.innerHeight && r.bottom > 0) {
+                    sec.style.setProperty(
+                        "--light-x",
+                        `${(window.scrollY % 400) / 4}%`
+                    );
+                }
+            });
+        });
+
+
+
+
+    </script>
+
+    <!-- LOGIN POPUP -->
+    <!-- Login Modal Removed -->
+
+
+    <script>
+        // Legacy login logic removed
+
+        // Stairs Animation
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (!targetSection) return;
+
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+
+                // Animate children
+                const children = targetSection.querySelectorAll('h2, h3, p, .group, button, div > span, .card-hover-effect');
+                children.forEach((child, index) => {
+                    child.classList.remove('stairs-animation');
+                    void child.offsetWidth; // trigger reflow
+                    child.style.animationDelay = `${index * 0.05}s`;
+                    child.classList.add('stairs-animation');
+                });
+            });
+        });
+
+        // Subscription Upgrade Flow
+        async function upgradePlan(planName) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showAlert("Please log in first to upgrade your plan.");
+                window.location.href = '/login'; // Redirect to login
+                return;
+            }
+
+            try {
+                const res = await fetch("/api/v1/payments/create-checkout-session", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ plan: planName })
+                });
+
+                const data = await res.json();
+                if (data.url) {
+                    window.location.href = data.url; // Redirect to Stripe
+                } else {
+                    showAlert("Error: " + (data.message || "Failed to initiate payment"));
+                }
+            } catch (err) {
+                console.error("Payment Error:", err);
+                showAlert("An error occurred during checkout. Please try again.");
+            }
+        }
+
+        function showAlert(message) {
+            const modal = document.createElement('div');
+            modal.className = "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in";
+            modal.innerHTML = `
+                <div class="bg-bg-soft border border-white/10 rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+                    <div class="size-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">info</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Notification</h3>
+                    <p class="text-text-muted mb-8">${message}</p>
+                    <button onclick="this.closest('.fixed').remove()" class="w-full py-3 rounded-lg bg-primary hover:bg-white text-bg-deep font-bold transition-all shadow-glow">
+                        Understood
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+    </script>
+
+
+    <!-- Features Modal -->
+    <div id="featuresModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeFeaturesModal()"></div>
+
+        <!-- Modal Content -->
+        <div
+            class="relative w-full max-w-6xl h-[90vh] bg-bg-deep border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-8 border-b border-white/5 bg-bg-deep z-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">All Premium Features</h2>
+                    <p class="text-text-muted">Comprehensive tools for the modern restaurant.</p>
+                </div>
+                <button onclick="closeFeaturesModal()"
+                    class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined text-white">close</span>
+                </button>
+            </div>
+
+            <!-- Scrollable Grid -->
+            <div class="flex-1 overflow-y-auto p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    <!-- Feature 4: Smart Customization -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">tune</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Smart Customization</h3>
+                            <p class="text-text-muted leading-relaxed">Complex modifiers and add-ons made simple. Let
+                                guests realize their perfect dish.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 5: Loyalty Programs -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">loyalty</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Loyalty Programs</h3>
+                            <p class="text-text-muted leading-relaxed">Built-in rewards system to turn first-time guests
+                                into regulars.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 6: Table Management -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">table_restaurant</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Table Management</h3>
+                            <p class="text-text-muted leading-relaxed">Visual floor plans to manage seating,
+                                reservations, and server sections.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 7: Staff Scheduling -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Staff Scheduling</h3>
+                            <p class="text-text-muted leading-relaxed">Manage shifts, track performance, and calculate
+                                payouts effortlessly.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 8: Inventory Sync -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">inventory_2</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Inventory Sync</h3>
+                            <p class="text-text-muted leading-relaxed">Real-time ingredient tracking that auto-updates
+                                as orders are placed.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 9: Kiosk Mode -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">touch_app</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Kiosk Mode</h3>
+                            <p class="text-text-muted leading-relaxed">Turn any tablet into a self-service station for
+                                fast-casual settings.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 10: Reservation Engine -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">calendar_today</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Reservation Engine</h3>
+                            <p class="text-text-muted leading-relaxed">Direct booking management with SMS confirmations
+                                and reminders.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 11: Feedback System -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">thumb_up</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Feedback System</h3>
+                            <p class="text-text-muted leading-relaxed">Collect private guest feedback instantly after
+                                payment.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 12: Multi-Language -->
+                    <div
+                        class="group flex flex-col gap-6 rounded-2xl border border-white/5 bg-bg-soft p-5 md:p-8 hover:border-primary/30 transition-colors">
+                        <div
+                            class="size-14 rounded-xl bg-bg-deep border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">translate</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Multi-Language</h3>
+                            <p class="text-text-muted leading-relaxed">Auto-translate your menu into 10+ languages for
+                                international guests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sign Up Modal -->
+        <div id="signupModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeSignupModal()"></div>
+
+            <!-- Modal Content -->
+            <div
+                class="relative w-full max-w-lg bg-bg-deep border border-1 border-white/20 rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)] flex flex-col p-8">
+
+                <!-- Close Button -->
+                <button onclick="closeSignupModal()"
+                    class="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-colors group z-20">
+                    <span
+                        class="material-symbols-outlined text-text-muted group-hover:text-white transition-colors">close</span>
+                </button>
+
+                <!-- Header -->
+                <div class="mb-8">
+                    <span class="text-white font-bold tracking-widest text-xs uppercase mb-2 block">Join the
+                        Future</span>
+                    <h2 class="text-3xl font-bold text-white mb-2">Get Started</h2>
+                    <p class="text-text-muted">Start your 14-day free trial. No credit card required.</p>
+                </div>
+
+                <!-- Form -->
+                <form class="flex flex-col gap-4" onsubmit="event.preventDefault(); closeSignupModal();">
+                    <!-- Name -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-text-muted">Restaurant Name</label>
+                        <input type="text"
+                            class="w-full h-12 rounded-xl bg-bg-soft border border-white/10 px-4 text-white focus:outline-none focus:border-white/50 transition-colors"
+                            placeholder="e.g. The Golden Spoon">
+                    </div>
+                    <!-- Email -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-text-muted">Work Email</label>
+                        <input type="email"
+                            class="w-full h-12 rounded-xl bg-bg-soft border border-white/10 px-4 text-white focus:outline-none focus:border-white/50 transition-colors"
+                            placeholder="name@restaurant.com">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="mt-4 w-full h-12 rounded-xl bg-white text-black font-bold hover:bg-white/90 transition-all shadow-glow flex items-center justify-center gap-2 group">
+                        <span>Create Account</span>
+                        <span
+                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Contact Modal -->
+        <div id="contactModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeContactModal()"></div>
+
+            <!-- Modal Content -->
+            <div
+                class="relative w-full max-w-lg bg-bg-deep border border-1 border-primary/30 rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(186,151,49,0.2)] flex flex-col p-8">
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-1">Contact Sales</h2>
+                        <p class="text-text-muted text-sm">We'll get back to you within 24 hours.</p>
+                    </div>
+                    <button onclick="closeContactModal()"
+                        class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
+                        <span class="material-symbols-outlined text-white">close</span>
+                    </button>
+                </div>
+
+                <!-- Form -->
+                <form class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-white">Full Name</label>
+                        <input type="text"
+                            class="w-full bg-bg-soft border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                            placeholder="John Doe">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-white">Email Address</label>
+                        <input type="email"
+                            class="w-full bg-bg-soft border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                            placeholder="john@restaurant.com">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-white">Restaurant Name</label>
+                        <input type="text"
+                            class="w-full bg-bg-soft border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                            placeholder="Urban Grill">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-white">Message</label>
+                        <textarea rows="4"
+                            class="w-full bg-bg-soft border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                            placeholder="Tell us about your needs..."></textarea>
+                    </div>
+
+                    <button type="button" onclick="closeContactModal()"
+                        class="mt-4 w-full py-4 bg-primary text-bg-deep font-bold rounded-xl hover:bg-white transition-colors shadow-glow">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+        <script>
+            // Features Modal Logic
+            const featuresBtn = document.getElementById('viewAllFeaturesBtn');
+            const featuresModal = document.getElementById('featuresModal');
+            const signupModal = document.getElementById('signupModal');
+
+            function openSignupModal() {
+                signupModal.classList.remove('hidden');
+                signupModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+
+                if (window.gsap) {
+                    gsap.fromTo("#signupModal > div:last-child",
+                        { scale: 0.9, opacity: 0 },
+                        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
+                    );
+                }
+            }
+
+            function closeSignupModal() {
+                if (window.gsap) {
+                    gsap.to("#signupModal > div:last-child", {
+                        scale: 0.9,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power3.in",
+                        onComplete: () => {
+                            signupModal.classList.remove('flex');
+                            signupModal.classList.add('hidden');
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                } else {
+                    signupModal.classList.remove('flex');
+                    signupModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+
+            function openFeaturesModal() {
+                featuresModal.classList.remove('hidden');
+                featuresModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+
+                // GSAP Entrance
+                if (window.gsap) {
+                    gsap.fromTo("#featuresModal > div:last-child",
+                        { y: 50, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+                    );
+                }
+            }
+
+            function closeFeaturesModal() {
+                // GSAP Exit
+                if (window.gsap) {
+                    gsap.to("#featuresModal > div:last-child", {
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power3.in",
+                        onComplete: () => {
+                            featuresModal.classList.remove('flex');
+                            featuresModal.classList.add('hidden');
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                } else {
+                    featuresModal.classList.remove('flex');
+                    featuresModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            if (featuresBtn) {
+                featuresBtn.addEventListener('click', openFeaturesModal);
+            }
+
+            // Contact Modal Logic
+            const contactBtns = document.querySelectorAll('.contact-sales-trigger');
+            const contactModal = document.getElementById('contactModal');
+
+            function openContactModal() {
+                contactModal.classList.remove('hidden');
+                contactModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+
+                if (window.gsap) {
+                    gsap.fromTo("#contactModal > div:last-child",
+                        { scale: 0.9, opacity: 0 },
+                        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
+                    );
+                }
+            }
+
+            function closeContactModal() {
+                if (window.gsap) {
+                    gsap.to("#contactModal > div:last-child", {
+                        scale: 0.9,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power3.in",
+                        onComplete: () => {
+                            contactModal.classList.remove('flex');
+                            contactModal.classList.add('hidden');
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                } else {
+                    contactModal.classList.remove('flex');
+                    contactModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            contactBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openContactModal();
+                });
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!featuresModal.classList.contains('hidden')) closeFeaturesModal();
+                    if (!contactModal.classList.contains('hidden')) closeContactModal();
+                }
+            });
+            // Login Button Logic
+            const loginBtn = document.getElementById('openLogin');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', () => {
+                    window.location.href = '/login';
+                });
+            }
+
+            // Wire up new buttons
+            const getStartedBtn = document.getElementById('getStartedBtn');
+            const trialBtn = document.getElementById('trialBtn');
+            const demoBtn = document.getElementById('demoBtn');
+
+            if (getStartedBtn) getStartedBtn.addEventListener('click', openSignupModal);
+            if (trialBtn) trialBtn.addEventListener('click', openSignupModal);
+            if (demoBtn) {
+                demoBtn.addEventListener('click', () => {
+                    document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // Handle Signup Form Submit
+            const signupForm = document.querySelector('#signupModal form');
+            if (signupForm) {
+                signupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    // Simulate loading or redirect
+                    const btn = signupForm.querySelector('button');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<span>Creating...</span>';
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 1500);
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!featuresModal.classList.contains('hidden')) closeFeaturesModal();
+                    if (!contactModal.classList.contains('hidden')) closeContactModal();
+                    if (!signupModal.classList.contains('hidden')) closeSignupModal();
+                }
+            });
+
+            // Custom Cursor Logic
+            const cursor = document.querySelector('.custom-cursor');
+            const dot = document.querySelector('.cursor-dot');
+
+            if (cursor && dot) {
+                let mouseX = 0;
+                let mouseY = 0;
+                let cursorX = 0;
+                let cursorY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+
+                    // Dot follows instantly
+                    dot.style.left = mouseX + 'px';
+                    dot.style.top = mouseY + 'px';
+                });
+
+                // Smooth follow for circle
+                function animateCursor() {
+                    const dx = mouseX - cursorX;
+                    const dy = mouseY - cursorY;
+
+                    cursorX += dx * 0.15;
+                    cursorY += dy * 0.15;
+
+                    cursor.style.left = cursorX + 'px';
+                    cursor.style.top = cursorY + 'px';
+
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+
+                // Hover effects
+                const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, label');
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.classList.add('hovered');
+                        dot.classList.add('hovered');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursor.classList.remove('hovered');
+                        dot.classList.remove('hovered');
+                    });
+                });
+            }
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tap2Serve – Secure Login for Restaurant Owners & Admins</title>
+    <meta name="description"
+        content="Access your Tap2Serve dashboard to manage your restaurant, track orders, and view real-time analytics." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tap2serve.com/login" />
+    <meta property="og:title" content="Tap2Serve - Secure Login" />
+    <meta property="og:description" content="Access your Tap2Serve dashboard to manage your restaurant operations." />
+    <meta property="og:image" content="https://tap2serve.com/assets/og-image.jpg" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaquer.css">
+
+    <!-- Animation libs (UI ONLY) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+
+        <!-- VANTA BACKGROUND (UI ONLY) -->
+        <div id="vanta-birds"></div>
+
+        <div class="login-card">
+
+            <!-- LEFT PANEL -->
+            <div class="left-panel">
+
+                <!-- LOGO -->
+                <div class="logo">
+                    <a href="#"> <img src="assets/small-icon.jpeg" alt="Tap2Serve Logo"></a>
+                    <span>Tap2Serve</span>
+                </div>
+
+                <h2 class="welcome-heading">Welcome back</h2>
+
+                <!-- ROLE BUTTONS -->
+                <div class="role-buttons">
+                    <button id="roleRestaurant" class="role-btn active">Restaurant</button>
+                    <button id="roleAdmin" class="role-btn">Admin</button>
+                </div>
+
+                <!-- BACKEND: send this value -->
+                <input type="hidden" id="loginRole" value="owner">
+
+                <!-- LOGIN FORM -->
+                <div id="login-container">
+                    <form id="loginForm">
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" autocomplete="username" required>
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" autocomplete="current-password" id="password" required>
+                        </div>
+                        <button type="submit" class="login-btn">Sign in</button>
+                    </form>
+                    <p class="note" style="margin-top: 1rem; text-align: center;">
+                        Don't have an account? <a href="#" id="showSignup" style="color:#C9A24D;">Sign up</a>
+                    </p>
+                </div>
+
+                <!-- SIGNUP FORM -->
+                <div id="signup-container" style="display:none">
+                    <form id="signupForm">
+                        <div class="field">
+                            <label for="signupName">Restaurant Name</label>
+                            <input id="signupName" type="text" required placeholder="e.g. Urban Grill">
+                        </div>
+                        <div class="field">
+                            <label for="signupEmail">Email</label>
+                            <input id="signupEmail" type="email" required>
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" id="signupPassword" required>
+                        </div>
+                        <button type="submit" class="login-btn">Submit Request</button>
+                    </form>
+                    <p class="note" style="margin-top: 1rem; text-align: center;">
+                        Already have an account? <a href="#" id="showLogin" style="color:#C9A24D;">Sign in</a>
+                    </p>
+                </div>
+
+                <a href="#" id="contactSupportBtn">
+                    <p class="note">Having trouble signing in? Contact support</p>
+
+                </a>
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="right-panel">
+                <img src="assets/WhatsApp Image 2025-12-16 at 3.12.40 AM.jpeg" alt="Tap2Serve dashboard preview">
+
+                <div class="info">
+                    <h3>Smart QR Ordering</h3>
+                    <p>Customers scan QR codes and place orders instantly.</p>
+                    <p>Restaurants manage everything from one dashboard.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2>Contact Support</h2>
+                    <p>We'll help you get back on track.</p>
+                </div>
+                <button id="closeContactModal" class="close-btn">&times;</button>
+            </div>
+
+            <form id="contactForm">
+                <div class="field">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="John Doe">
+                </div>
+                <div class="field">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="john@restaurant.com">
+                </div>
+                <div class="field">
+                    <label>Issue Description</label>
+                    <textarea rows="4" placeholder="Describe your issue..."
+                        style="width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #555; background: black; color: #fff;"></textarea>
+                </div>
+
+                <button type="submit" class="login-btn" style="margin-top: 10px;">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
