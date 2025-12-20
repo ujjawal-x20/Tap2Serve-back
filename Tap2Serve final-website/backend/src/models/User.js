@@ -7,11 +7,12 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     role: {
         type: String,
-        enum: ['admin', 'owner', 'manager', 'chef', 'delivery', 'waiter'],
+        enum: ['admin', 'owner', 'manager', 'chef', 'delivery', 'waiter', 'cashier'],
         default: 'owner'
     },
     status: { type: String, enum: ['active', 'pending', 'suspended'], default: 'pending' },
-    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }
+    restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' },
+    branchId: { type: mongoose.Schema.Types.ObjectId, ref: 'Branch' }
 }, { timestamps: true });
 
 // Hash password before saving

@@ -44,7 +44,13 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Mount routers
+// Mount routers
 const apiRouter = express.Router();
+
+const branchRoutes = require('./src/routes/branchRoutes');
+const waiterRoutes = require('./src/routes/waiterRoutes');
+const analyticsRoutes = require('./src/routes/analyticsRoutes');
+const feedbackRoutes = require('./src/routes/feedbackRoutes');
 
 apiRouter.use('/auth', authRoutes);
 apiRouter.use('/restaurants', restaurantRoutes);
@@ -53,6 +59,12 @@ apiRouter.use('/menu', menuRoutes);
 apiRouter.use('/admin', adminRoutes);
 apiRouter.use('/stats', statRoutes);
 apiRouter.use('/payments', paymentRoutes);
+apiRouter.use('/inventory', require('./src/routes/inventoryRoutes'));
+apiRouter.use('/reservations', require('./src/routes/reservationRoutes'));
+apiRouter.use('/branches', branchRoutes);
+apiRouter.use('/waiter', waiterRoutes);
+apiRouter.use('/analytics', analyticsRoutes);
+apiRouter.use('/feedback', feedbackRoutes);
 
 app.use('/api/v1', apiRouter);
 

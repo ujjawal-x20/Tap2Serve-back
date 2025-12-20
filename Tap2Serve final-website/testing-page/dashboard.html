@@ -126,6 +126,19 @@
         </div>
 
         <nav class="flex-1 py-8 flex flex-col gap-1">
+            <!-- Alert Panel for Waiter Calls -->
+            <div id="waiter-alert-panel"
+                class="hidden mx-4 mb-4 bg-red-500/20 border border-red-500/50 rounded-lg p-3 animate-pulse">
+                <div class="flex justify-between items-center text-red-500 font-bold text-sm mb-2">
+                    <span>Waiter Called!</span>
+                    <button onclick="fetchWaiterCalls()" class="text-white hover:text-red-200"><span
+                            class="material-symbols-outlined">refresh</span></button>
+                </div>
+                <div id="waiter-alert-list" class="space-y-2 max-h-32 overflow-y-auto">
+                    <!-- Calls Injected -->
+                </div>
+            </div>
+
             <div class="px-4 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Main</div>
 
             <a onclick="switchTab('dashboard')" id="nav-dashboard"
@@ -141,8 +154,27 @@
             </a>
             <a onclick="switchTab('menu')" id="nav-menu"
                 class="sidebar-link flex items-center gap-4 px-8 py-3 text-sm font-medium text-gray-300">
-                <span class="material-symbols-outlined text-[20px]">menu_book</span>
                 Menu Management
+            </a>
+            <a onclick="switchTab('inventory')" id="nav-inventory"
+                class="sidebar-link flex items-center gap-4 px-8 py-3 text-sm font-medium text-gray-300">
+                <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                Inventory
+            </a>
+            <a onclick="switchTab('history')" id="nav-history"
+                class="sidebar-link flex items-center gap-4 px-8 py-3 text-sm font-medium text-gray-300">
+                <span class="material-symbols-outlined text-[20px]">history</span>
+                Order History
+            </a>
+            <a onclick="switchTab('reservations')" id="nav-reservations"
+                class="sidebar-link flex items-center gap-4 px-8 py-3 text-sm font-medium text-gray-300">
+                <span class="material-symbols-outlined text-[20px]">event_seat</span>
+                Reservations
+            </a>
+            <a onclick="switchTab('kds')" id="nav-kds"
+                class="sidebar-link flex items-center gap-4 px-8 py-3 text-sm font-medium text-gray-300">
+                <span class="material-symbols-outlined text-[20px]">soup_kitchen</span>
+                Kitchen Panel
             </a>
             <a onclick="switchTab('tables')" id="nav-tables"
                 class="sidebar-link flex items-center gap-4 px-8 py-3 text-sm font-medium text-gray-300">
@@ -429,6 +461,123 @@
                 </div>
             </div>
 
+            <!-- ================= VIEW: INVENTORY ================= -->
+            <div id="view-inventory" class="view-section">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-white">Inventory Management</h3>
+                    <button onclick="fetchInventory()" class="text-primary hover:text-white"><span
+                            class="material-symbols-outlined">refresh</span></button>
+                </div>
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/5">
+                    <table class="w-full text-left text-sm text-gray-400">
+                        <thead class="bg-white/5 uppercase text-xs text-primary">
+                            <tr>
+                                <th class="px-6 py-4">Item Name</th>
+                                <th class="px-6 py-4">Stock Level</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-body" class="divide-y divide-white/5">
+                            <!-- JS Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: HISTORY ================= -->
+            <div id="view-history" class="view-section">
+                <div class="flex gap-4 mb-6">
+                    <input type="date" id="hist-date-from"
+                        class="bg-bg-soft border border-white/10 rounded px-3 py-2 text-sm text-white focus:border-primary focus:outline-none">
+                    <input type="date" id="hist-date-to"
+                        class="bg-bg-soft border border-white/10 rounded px-3 py-2 text-sm text-white focus:border-primary focus:outline-none">
+                    <select id="hist-status"
+                        class="bg-bg-soft border border-white/10 rounded px-3 py-2 text-sm text-white focus:border-primary focus:outline-none">
+                        <option value="">All Statuses</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                        <option value="Paid">Paid</option>
+                    </select>
+                    <button onclick="fetchHistory()"
+                        class="bg-primary text-black font-bold px-4 py-2 rounded text-sm hover:bg-white transition-colors">Apply
+                        Filters</button>
+                </div>
+
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/5">
+                    <table class="w-full text-left text-sm text-gray-400">
+                        <thead class="bg-white/5 uppercase text-xs">
+                            <tr>
+                                <th class="px-6 py-4">Date</th>
+                                <th class="px-6 py-4">Order ID</th>
+                                <th class="px-6 py-4">Table</th>
+                                <th class="px-6 py-4">Items</th>
+                                <th class="px-6 py-4">Total</th>
+                                <th class="px-6 py-4">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body" class="divide-y divide-white/5">
+                            <!-- JS Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: RESERVATIONS ================= -->
+            <div id="view-reservations" class="view-section">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-white">Table Reservations</h3>
+                    <button onclick="fetchReservations()" class="text-primary hover:text-white"><span
+                            class="material-symbols-outlined">refresh</span></button>
+                </div>
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/5">
+                    <table class="w-full text-left text-sm text-gray-400">
+                        <thead class="bg-white/5 uppercase text-xs text-primary">
+                            <tr>
+                                <th class="px-6 py-4">Time</th>
+                                <th class="px-6 py-4">Guest Name</th>
+                                <th class="px-6 py-4">Party Size</th>
+                                <th class="px-6 py-4">Table</th>
+                                <th class="px-6 py-4">Contact</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservations-body" class="divide-y divide-white/5">
+                            <!-- JS Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: RESERVATIONS ================= -->
+            <!-- ... (existing) ... -->
+
+            <!-- ================= VIEW: KDS (Kitchen Display System) ================= -->
+            <div id="view-kds" class="view-section">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-white tracking-wider">KITCHEN DISPLAY</h3>
+                    <div class="flex gap-4">
+                        <div class="flex items-center gap-2 bg-gray-800 px-3 py-1 rounded-lg border border-white/10">
+                            <span class="text-xs text-gray-400">Prep:</span>
+                            <input type="number" id="prep-time-input" value="20"
+                                class="w-8 bg-transparent text-white text-center font-bold focus:outline-none"
+                                onchange="updatePrepTime(this.value)">
+                            <span class="text-xs text-gray-500">m</span>
+                        </div>
+                        <span class="flex items-center gap-2 text-gray-400 text-sm">
+                            <span class="size-3 bg-red-500 rounded-full animate-pulse"></span> Live Sync
+                        </span>
+                        <button onclick="fetchKDS()" class="text-primary hover:text-white"><span
+                                class="material-symbols-outlined">refresh</span></button>
+                    </div>
+                </div>
+
+                <div id="kds-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <!-- KDS Tickets Injected Here -->
+                </div>
+            </div>
+
             <!-- ================= VIEW: MENU MANAGEMENT ================= -->
             <div id="view-menu" class="view-section">
                 <div class="flex justify-between items-center mb-6">
@@ -488,31 +637,8 @@
                         <div class="absolute top-4 left-8 text-gray-500 font-bold uppercase tracking-widest text-xs">
                             Main Dining Hall</div>
 
-                        <div class="grid grid-cols-4 gap-12 mt-8">
-                            <!-- Table: Occupied -->
-                            <div onclick="handleTableClick('T-01')"
-                                class="aspect-square bg-red-500/10 border-2 border-red-500 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer hover:bg-red-500/20 transition-colors">
-                                <span class="text-2xl font-bold text-red-500">T-01</span>
-                                <span class="text-xs text-red-400 mt-1">Occupied</span>
-                            </div>
-                            <!-- Table: Free -->
-                            <div onclick="handleTableClick('T-02')"
-                                class="aspect-square bg-green-500/10 border-2 border-green-500 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer hover:bg-green-500/20 transition-colors">
-                                <span class="text-2xl font-bold text-green-500">T-02</span>
-                                <span class="text-xs text-green-400 mt-1">Empty</span>
-                            </div>
-                            <!-- Table: Reserved -->
-                            <div onclick="handleTableClick('T-03')"
-                                class="aspect-square bg-orange-500/10 border-2 border-orange-500 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer hover:bg-orange-500/20 transition-colors">
-                                <span class="text-2xl font-bold text-orange-500">T-03</span>
-                                <span class="text-xs text-orange-400 mt-1">Reserved</span>
-                            </div>
-                            <!-- Table: Occupied -->
-                            <div onclick="handleTableClick('T-04')"
-                                class="aspect-square bg-red-500/10 border-2 border-red-500 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer hover:bg-red-500/20 transition-colors">
-                                <span class="text-2xl font-bold text-red-500">T-04</span>
-                                <span class="text-xs text-red-400 mt-1">Occupied</span>
-                            </div>
+                        <div id="tables-grid" class="grid grid-cols-4 gap-12 mt-8">
+                            <!-- JS Injected Tables -->
                         </div>
                     </div>
                 </div>
@@ -730,7 +856,8 @@
         // Fetch Stats
         async function fetchStats() {
             try {
-                const res = await fetch("/api/v1/stats/dashboard");
+                // Use Analytics Controller (Branch Aware)
+                const res = await fetch("/api/v1/analytics/dashboard");
                 const data = await res.json();
 
                 if (document.getElementById("stat-revenue"))
@@ -817,6 +944,49 @@
             } catch (err) { console.error(err); }
         }
 
+
+
+        // Fetch Inventory
+        async function fetchInventory() {
+            try {
+                const res = await fetch("/api/v1/inventory");
+                const data = await res.json();
+                const tbody = document.getElementById('inventory-body');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    const lowStock = item.quantity <= item.lowStockThreshold;
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-medium text-white">${item.menuId ? item.menuId.name : 'Unknown Item'}</td>
+                        <td class="px-6 py-4">
+                            <input type="number" value="${item.quantity}" 
+                                onchange="updateStock('${item.menuId._id}', this.value)"
+                                class="bg-black/20 border ${lowStock ? 'border-red-500 text-red-500' : 'border-white/10 text-white'} rounded px-2 py-1 w-20 text-center focus:outline-none focus:border-primary">
+                        </td>
+                        <td class="px-6 py-4">
+                            ${lowStock ? '<span class="text-xs bg-red-500/10 text-red-500 px-2 py-1 rounded border border-red-500/20">Low Stock</span>' : '<span class="text-xs bg-green-500/10 text-green-500 px-2 py-1 rounded border border-green-500/20">In Stock</span>'}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <button class="text-xs text-gray-400 hover:text-white underline">History</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (err) { console.error("Failed to fetch inventory", err); }
+        }
+
+        async function updateStock(menuId, qty) {
+            try {
+                await fetch(`/api/v1/inventory/${menuId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ quantity: qty })
+                });
+                fetchInventory(); // Refresh to update status
+            } catch (e) { alert("Failed to update stock"); }
+        }
         // Fetch Menu
         async function fetchMenu() {
             try {
@@ -864,6 +1034,158 @@
             if (!await showConfirm("Are you sure you want to delete this menu item?")) return;
             await fetch(`/api/v1/menu/${id}`, { method: 'DELETE' });
             fetchMenu();
+        }
+
+        // Fetch History
+        async function fetchHistory() {
+            const dateFrom = document.getElementById('hist-date-from').value;
+            const dateTo = document.getElementById('hist-date-to').value;
+            const status = document.getElementById('hist-status').value;
+
+            const params = new URLSearchParams();
+            if (dateFrom) params.append('dateFrom', dateFrom);
+            if (dateTo) params.append('dateTo', dateTo);
+            if (status) params.append('status', status);
+
+            try {
+                const res = await fetch(`/api/v1/orders?${params.toString()}`);
+                const orders = await res.json();
+                const tbody = document.getElementById('history-body');
+                tbody.innerHTML = '';
+
+                if (orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center">No orders found</td></tr>';
+                    return;
+                }
+
+                orders.forEach(order => {
+                    const row = document.createElement('tr');
+                    // XSS Protection for items and tableNo
+                    const items = order.items.map(i => `${escapeHtml(i.qty)}x ${escapeHtml(i.name)}`).join(', ');
+                    row.innerHTML = `
+                        <td class="px-6 py-4">${new Date(order.createdAt).toLocaleDateString()} ${new Date(order.createdAt).toLocaleTimeString()}</td>
+                        <td class="px-6 py-4 font-mono text-white">#${escapeHtml(order.id.slice(-6))}</td>
+                        <td class="px-6 py-4"><span class="bg-white/10 px-2 py-1 rounded text-xs">${escapeHtml(order.tableNo)}</span></td>
+                        <td class="px-6 py-4 text-white line-clamp-1" title="${items}">${items}</td>
+                        <td class="px-6 py-4 font-bold text-primary">₹${escapeHtml(order.total)}</td>
+                        <td class="px-6 py-4"><span class="px-2 py-1 rounded text-xs border border-white/20 ${order.status === 'Paid' ? 'text-green-500 bg-green-500/10' : 'text-gray-300'}">${escapeHtml(order.status)}</span></td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (e) { console.error("History fetch failed", e); }
+        }
+
+        async function fetchKDS() {
+            try {
+                // Fetch active orders (New, Cooking)
+                // In prod, use a dedicated endpoint or filter existing orders
+                const res = await fetch("/api/v1/orders?status=active"); // Backend needs to support 'active' alias or multiple statuses
+                // For MVP, fetch all and filter client side or use existing order fetch
+                const allRes = await fetch("/api/v1/orders"); // Getting all for now
+                const orders = await allRes.json();
+
+                const kdsGrid = document.getElementById('kds-grid');
+                if (!kdsGrid) return;
+                kdsGrid.innerHTML = '';
+
+                // Filter for KDS states
+                const activeOrders = orders.filter(o => ['New', 'Cooking'].includes(o.status)).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // FIFO
+
+                activeOrders.forEach(order => {
+                    const elapsed = Math.floor((new Date() - new Date(order.createdAt)) / 60000);
+                    let timerColor = 'text-gray-400';
+                    if (elapsed > 15) timerColor = 'text-red-500 animate-pulse';
+                    else if (elapsed > 10) timerColor = 'text-yellow-500';
+
+                    // Items list
+                    const itemsHtml = order.items.map(i => `
+                        <div class="flex justify-between items-center border-b border-white/10 py-2">
+                             <span class="font-bold text-lg text-white">${i.quantity}x ${i.name}</span>
+                        </div>
+                    `).join('');
+
+                    const ticket = document.createElement('div');
+                    ticket.className = `bg-gray-800 rounded-xl p-4 border-l-4 ${order.status === 'New' ? 'border-blue-500' : 'border-orange-500'} flex flex-col h-full justify-between`;
+
+                    ticket.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="block text-2xl font-bold text-white">Table ${order.tableNo}</span>
+                                    <span class="text-xs text-gray-400">#${order.id.slice(-4)}</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-xl font-mono font-bold ${timerColor}">${elapsed}m</span>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                ${itemsHtml}
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            ${order.status === 'New'
+                            ? `<button onclick="updateStatus('${order.id}', 'Cooking')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded text-xl">START COOKING</button>`
+                            : `<button onclick="updateStatus('${order.id}', 'Ready')" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded text-xl">MARK READY</button>`
+                        }
+                        </div>
+                    `;
+                    kdsGrid.appendChild(ticket);
+                });
+
+            } catch (e) { console.error("KDS Fetch Failed", e); }
+        }
+
+        // Poll KDS if active
+        setInterval(() => {
+            const kdsView = document.getElementById('view-kds');
+            if (kdsView && !kdsView.classList.contains('hidden')) {
+                fetchKDS();
+            }
+        }, 5000);
+
+        // Fetch Reservations
+        async function fetchReservations() {
+            try {
+                const res = await fetch("/api/v1/reservations");
+                const reservations = await res.json();
+                const tbody = document.getElementById('reservations-body');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+
+                reservations.forEach(res => {
+                    const row = document.createElement('tr');
+                    let statusColor = 'text-gray-300';
+                    if (res.status === 'Confirmed') statusColor = 'text-green-500';
+                    if (res.status === 'Cancelled') statusColor = 'text-red-500';
+
+                    row.innerHTML = `
+                        <td class="px-6 py-4 text-white">${new Date(res.time).toLocaleString()}</td>
+                        <td class="px-6 py-4 font-bold text-white">${res.customerName}</td>
+                        <td class="px-6 py-4">${res.guests} ppl</td>
+                        <td class="px-6 py-4"><span class="bg-white/10 px-2 py-1 rounded text-xs">${res.tableNo}</span></td>
+                        <td class="px-6 py-4">${res.contactNumber || '-'}</td>
+                        <td class="px-6 py-4"><span class="${statusColor}">${res.status}</span></td>
+                        <td class="px-6 py-4 text-right">
+                            ${res.status === 'Pending' ?
+                            `<button onclick="updateResStatus('${res._id}', 'Confirmed')" class="text-green-500 hover:underline mr-2">Confirm</button>
+                                 <button onclick="updateResStatus('${res._id}', 'Cancelled')" class="text-red-500 hover:underline">Cancel</button>`
+                            : ''}
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (e) { console.error("Reservations fetch failed", e); }
+        }
+
+        async function updateResStatus(id, status) {
+            try {
+                await fetch(`/api/v1/reservations/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                fetchReservations();
+            } catch (e) { alert("Failed to update reservation"); }
         }
 
         function showConfirm(message) {
@@ -1025,9 +1347,12 @@
             const data = await openModal({
                 title: 'Add New Menu Item',
                 fields: [
-                    { name: 'name', label: 'Item Name', type: 'text', placeholder: 'e.g. Truffle Pizza' },
+                    { name: 'name', label: 'Item Name (EN)', type: 'text', placeholder: 'e.g. Truffle Pizza' },
+                    { name: 'name_hi', label: 'Item Name (HI)', type: 'text', placeholder: 'e.g. ट्रफल पिज़्ज़ा' },
                     { name: 'category', label: 'Category', type: 'select', options: ['Main', 'Starter', 'Dessert', 'Drink'] },
-                    { name: 'price', label: 'Price (₹)', type: 'number', placeholder: 'e.g. 450' }
+                    { name: 'price', label: 'Price (₹)', type: 'number', placeholder: 'e.g. 450' },
+                    { name: 'desc_en', label: 'Desc (EN)', type: 'text', placeholder: 'Description in English' },
+                    { name: 'desc_hi', label: 'Desc (HI)', type: 'text', placeholder: 'Description in Hindi' }
                 ],
                 submitLabel: 'Submit Request'
             });
@@ -1043,6 +1368,9 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         name: data.name,
+                        name_hi: data.name_hi,
+                        description_en: data.desc_en,
+                        description_hi: data.desc_hi,
                         category: data.category || 'Main',
                         price: price,
                         image_url: ""
@@ -1099,8 +1427,11 @@
                 if (tbody && data.length > 0) {
                     tbody.innerHTML = data.map(txn => `
                         <tr>
-                            <td class="px-6 py-4 text-white font-mono">#TXN-${txn.id}</td>
-                            <td class="px-6 py-4">${new Date(txn.timestamp).toLocaleString()}</td>
+                            <td class="px-6 py-4 text-white font-mono">
+                                #TXN-${txn.id.slice(-4)}
+                                <div class="text-[10px] text-gray-500">${txn.invoiceId || ''}</div>
+                            </td>
+                            <td class="px-6 py-4">${new Date(txn.createdAt).toLocaleString()}</td>
                             <td class="px-6 py-4 flex items-center gap-2">
                                 <span class="material-symbols-outlined text-sm">payments</span> Cash
                             </td>
@@ -1108,11 +1439,54 @@
                                 <span class="text-green-500 text-xs border border-green-500/30 bg-green-500/10 px-2 py-0.5 rounded">${txn.status}</span>
                             </td>
                             <td class="px-6 py-4 text-right text-white">₹${txn.total}</td>
+                            <td class="px-6 py-4 text-right">
+                                <button onclick="printInvoice('${txn.id}')" class="bg-white/10 hover:bg-white/20 p-2 rounded text-white" title="Print Bill">
+                                    <span class="material-symbols-outlined text-sm">print</span>
+                                </button>
+                            </td>
                         </tr>
                     `).join('');
                 }
             } catch (e) { console.error("Txn error", e); }
         }
+
+        // Waiter Calls
+        async function fetchWaiterCalls() {
+            try {
+                const res = await fetch("/api/v1/waiter"); // Staff endpoint
+                const calls = await res.json();
+                const panel = document.getElementById('waiter-alert-panel');
+                const list = document.getElementById('waiter-alert-list');
+
+                if (!panel || !list) return;
+
+                if (calls.length > 0) {
+                    panel.classList.remove('hidden');
+                    list.innerHTML = calls.map(call => `
+                        <div class="bg-red-500 text-white text-xs p-2 rounded flex justify-between items-center">
+                            <span>Table ${call.tableNo} (${call.type})</span>
+                            <button onclick="resolveCall('${call._id}')" class="bg-white/20 px-2 py-0.5 rounded hover:bg-white/40">✓</button>
+                        </div>
+                    `).join('');
+                } else {
+                    panel.classList.add('hidden');
+                }
+            } catch (e) { console.error("Waiter fetch failed", e); }
+        }
+
+        async function resolveCall(id) {
+            try {
+                await fetch(`/api/v1/waiter/${id}/resolve`, { method: 'PUT' });
+                fetchWaiterCalls();
+            } catch (e) { }
+        }
+
+        // Poll for waiter calls
+        setInterval(fetchWaiterCalls, 10000);
+
+
+
+        // Analytics Stats
 
         async function handleTableClick(tableId) {
             try {
@@ -1157,15 +1531,26 @@
                     const itemPrice = parseFloat(pricePart);
                     const qty = parseInt(data.qty) || 1;
 
+                    // Lookup menuId for Inventory Logic
+                    const selectedMenu = availableItems.find(m => m.name === itemName);
+                    const menuId = selectedMenu ? selectedMenu._id : null;
+
                     const total = itemPrice * qty;
+                    const idempotencyKey = 'dash_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
                     await fetch("/api/v1/orders", {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             table_no: tableId,
-                            items: [{ name: itemName, qty: qty, price: itemPrice }],
-                            total: total
+                            items: [{
+                                name: itemName,
+                                qty: qty,
+                                price: itemPrice,
+                                menuId: menuId // Critical for Inventory
+                            }],
+                            total: total,
+                            idempotencyKey: idempotencyKey
                         })
                     });
 
@@ -1214,8 +1599,25 @@
             } catch (e) { console.error(e); }
         }
 
+        let currentRestaurant = null;
+
+        async function fetchRestaurantDetails() {
+            try {
+                const res = await fetch("/api/v1/restaurants");
+                const data = await res.json();
+                if (data.length > 0) {
+                    currentRestaurant = data[0]; // Assuming single restaurant context for manager
+                    // Save for QR generation
+                    console.log("Loaded Restaurant:", currentRestaurant.name);
+                }
+            } catch (e) { console.error("Failed to load restaurant details", e); }
+        }
+
         // Fetch & Update Tables Status
         async function fetchTables() {
+            if (!currentRestaurant) await fetchRestaurantDetails();
+            if (!currentRestaurant) return;
+
             try {
                 // We infer status from Active Orders
                 const res = await fetch("/api/v1/orders");
@@ -1224,39 +1626,51 @@
                 // Get all active tables from orders (New, Cooking, Ready)
                 const activeTables = new Set(orders.filter(o => ['New', 'Cooking', 'Ready'].includes(o.status)).map(o => o.table_no));
 
-                document.querySelectorAll('#view-tables .aspect-square').forEach(el => {
-                    const title = el.querySelector('.font-bold');
-                    if (title) {
-                        const tableId = title.textContent.trim();
-                        if (activeTables.has(tableId)) {
-                            // Set to Occupied (Red)
-                            el.className = "aspect-square bg-red-500/10 border-2 border-red-500 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer hover:bg-red-500/20 transition-colors";
-                            if (title) title.className = "text-2xl font-bold text-red-500";
-                            // Add/Update label
-                            let label = el.querySelector('.text-xs');
-                            if (!label) {
-                                label = document.createElement('span');
-                                label.className = "text-xs text-red-400 mt-1";
-                                el.appendChild(label);
-                            }
-                            label.className = "text-xs text-red-400 mt-1";
-                            label.textContent = "Occupied";
+                const grid = document.getElementById('tables-grid');
+                if (!grid) return;
 
-                        } else {
-                            // Set to Free (Green)
-                            el.className = "aspect-square bg-green-500/10 border-2 border-green-500 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer hover:bg-green-500/20 transition-colors";
-                            if (title) title.className = "text-2xl font-bold text-green-500";
-                            let label = el.querySelector('.text-xs');
-                            if (!label) {
-                                label = document.createElement('span');
-                                label.className = "text-xs text-green-400 mt-1";
-                                el.appendChild(label);
-                            }
-                            label.className = "text-xs text-green-400 mt-1";
-                            label.textContent = "Empty";
-                        }
-                    }
-                });
+                // If grid is empty, build it. If already built, just update status.
+                // Simple approach: Rebuild if count differs or empty (for initial load)
+                // But to keep animations smooth, it's better to update. 
+                // For this task, strict structure validtion -> let's rebuild on first load, then update class.
+                // Or easier: Just rebuild string and inject. Performance is fine for < 50 tables.
+
+                let html = '';
+                // Dynamic Count
+                const count = currentRestaurant.tableCount || 10;
+
+                for (let i = 1; i <= count; i++) {
+                    const tableId = `T-${i.toString().padStart(2, '0')}`;
+                    const isOccupied = activeTables.has(tableId);
+
+                    // QR Link
+                    const qrUrl = `menu.html?restaurantId=${currentRestaurant.id}&table=${tableId}`;
+
+                    html += `
+                    <div class="relative group">
+                        <div onclick="handleTableClick('${tableId}')"
+                            class="aspect-square border-2 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer transition-colors
+                            ${isOccupied ?
+                            'bg-red-500/10 border-red-500 hover:bg-red-500/20' :
+                            'bg-green-500/10 border-green-500 hover:bg-green-500/20'}">
+                            
+                            <span class="text-2xl font-bold ${isOccupied ? 'text-red-500' : 'text-green-500'}">${tableId}</span>
+                            <span class="text-xs mt-1 ${isOccupied ? 'text-red-400' : 'text-green-400'}">${isOccupied ? 'Occupied' : 'Empty'}</span>
+                        </div>
+                        
+                        <!-- QR Hover -->
+                        <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                            <a href="${qrUrl}" target="_blank" class="bg-white text-black text-[10px] font-bold px-2 py-1 rounded shadow-lg whitespace-nowrap hover:bg-primary">
+                                Open QR Menu
+                            </a>
+                        </div>
+                    </div>
+                    `;
+                }
+
+                // Only update if changed prevents flickering? innerHTML replacement is fast enough here.
+                grid.innerHTML = html;
+
             } catch (e) { console.error("Tables error", e); }
         }
 

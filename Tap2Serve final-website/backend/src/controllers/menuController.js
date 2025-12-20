@@ -5,12 +5,17 @@ const AuditLog = require('../models/AuditLog');
 // @route   GET /api/v1/menu
 // @access  Private
 const getMenu = async (req, res) => {
-    const menu = await Menu.find({ restaurantId: req.restaurantId });
-    const formattedMenu = menu.map(item => ({
-        ...item.toObject(),
-        id: item._id
-    }));
-    res.json(formattedMenu);
+    try {
+        const restaurantId = req.params.restaurantId || req.restaurantId;
+        const menu = await Menu.find({ restaurantId });
+        const formattedMenu = menu.map(item => ({
+            ...item.toObject(),
+            id: item._id
+        }));
+        res.json(formattedMenu);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 // @desc    Add menu item

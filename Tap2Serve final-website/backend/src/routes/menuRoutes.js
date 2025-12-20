@@ -5,6 +5,8 @@ const tenantHandler = require('../middleware/tenantMiddleware');
 const { checkFeatureLimit } = require('../middleware/subscriptionMiddleware');
 const router = express.Router();
 
+router.get('/public/:restaurantId', getMenu); // Public access
+
 router.use(protect);
 router.use(tenantHandler);
 

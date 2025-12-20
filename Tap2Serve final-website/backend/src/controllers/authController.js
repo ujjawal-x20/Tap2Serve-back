@@ -6,38 +6,42 @@ const logger = require('../utils/logger');
 // @route   POST /api/v1/auth/login
 // @access  Public
 const loginUser = async (req, res) => {
-    const { email, password, role } = req.body;
+    try {
+        const { email, password, role } = req.body;
 
-    const user = await User.findOne({ email });
+        const user = await User.findOne({ email });
 
-    if (user && (await user.comparePassword(password))) {
-        // Check role
-        if (role && role !== user.role) {
-            return res.status(403).json({ message: `Role mismatch: registered as '${user.role}'` });
+        if (user && (await user.comparePassword(password))) {
+            // Check role
+            if (role && role !== user.role) {
+                return res.status(403).json({ message: `Role mismatch: registered as '${user.role}'` });
+            }
+
+            // Check status
+            if (user.status === 'pending') {
+                return res.status(403).json({ message: 'Account Pending Approval' });
+            }
+            if (user.status === 'suspended') {
+                return res.status(403).json({ message: 'Account Suspended' });
+            }
+
+            res.json({
+                success: true,
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    restaurantId: user.restaurantId
+                },
+                token: generateToken(user._id),
+                redirect: user.role === 'admin' ? '../testing-page/admin.html' : '../testing-page/dashboard.html'
+            });
+        } else {
+            res.status(401).json({ message: 'Invalid email or password' });
         }
-
-        // Check status
-        if (user.status === 'pending') {
-            return res.status(403).json({ message: 'Account Pending Approval' });
-        }
-        if (user.status === 'suspended') {
-            return res.status(403).json({ message: 'Account Suspended' });
-        }
-
-        res.json({
-            success: true,
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                restaurantId: user.restaurantId
-            },
-            token: generateToken(user._id),
-            redirect: user.role === 'admin' ? '../testing-page/admin.html' : '../testing-page/dashboard.html'
-        });
-    } else {
-        res.status(401).json({ message: 'Invalid email or password' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
 
