@@ -1,5 +1,7 @@
 const Order = require('../models/Order');
 const AuditLog = require('../models/AuditLog');
+const Inventory = require('../models/Inventory');
+const { checkStock } = require('./inventoryController');
 
 // @desc    Get all orders for a restaurant
 // @route   GET /api/v1/orders
@@ -8,8 +10,16 @@ const AuditLog = require('../models/AuditLog');
 // @route   GET /api/v1/orders
 // @access  Private
 const getOrders = async (req, res) => {
-    const { status, dateFrom, dateTo, table, branchId } = req.query;
-    let query = { restaurantId: req.restaurantId };
+    const { status, dateFrom, dateTo, table, branchId, restaurantId } = req.query;
+    let query = {};
+
+    // Tenant Isolation: If user has a restaurantId, force it.
+    if (req.restaurantId) {
+        query.restaurantId = req.restaurantId;
+    } else if (restaurantId) {
+        // Admin viewing specific restaurant
+        query.restaurantId = restaurantId;
+    }
 
     // Branch Filtering for Staff/Manager
     if (req.user && req.user.branchId) {
@@ -53,7 +63,7 @@ const createOrder = async (req, res) => {
     const formattedItems = items.map(item => ({
         name: item.name,
         price: item.price,
-        quantity: item.qty,
+        quantity: item.qty || item.quantity || 1, // Support both formats
         menuId: item.menuId // Ensure menuId is passed from frontend
     }));
 
@@ -119,7 +129,7 @@ const createOrder = async (req, res) => {
         tableNo: table_no,
         items: formattedItems,
         total,
-        status: 'New',
+        status: 'New', // Force 'New' status for all created orders
         idempotencyKey,
         paymentId: paymentId || null // Optional payment
     });

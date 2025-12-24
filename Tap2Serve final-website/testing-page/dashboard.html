@@ -259,12 +259,13 @@
                             <div class="p-2 bg-primary/10 rounded-lg text-primary">
                                 <span class="material-symbols-outlined">payments</span>
                             </div>
-                            <span class="text-green-500 text-xs font-bold flex items-center">
-                                +12.5% <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                            <!-- Dynamic Percentage Placeholder -->
+                            <span class="text-gray-500 text-xs font-bold flex items-center" id="revenue-growth">
+                                --
                             </span>
                         </div>
                         <h3 class="text-gray-400 text-sm font-medium">Total Revenue</h3>
-                        <p id="stat-revenue" class="text-2xl font-bold text-white mt-1">₹...</p>
+                        <p id="stat-revenue" class="text-2xl font-bold text-white mt-1">₹0</p>
                     </div>
                     <!-- Stat 2 -->
                     <div class="glass-panel p-6 rounded-2xl stat-card transition-all duration-300">
@@ -272,12 +273,12 @@
                             <div class="p-2 bg-blue-500/10 rounded-lg text-blue-500">
                                 <span class="material-symbols-outlined">shopping_bag</span>
                             </div>
-                            <span class="text-green-500 text-xs font-bold flex items-center">
-                                +8.2% <span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+                            <span class="text-gray-500 text-xs font-bold flex items-center" id="orders-growth">
+                                --
                             </span>
                         </div>
                         <h3 class="text-gray-400 text-sm font-medium">Total Orders</h3>
-                        <p id="stat-orders" class="text-2xl font-bold text-white mt-1">...</p>
+                        <p id="stat-orders" class="text-2xl font-bold text-white mt-1">0</p>
                     </div>
                     <!-- Stat 3 -->
                     <div class="glass-panel p-6 rounded-2xl stat-card transition-all duration-300">
@@ -288,7 +289,7 @@
                             <span class="text-gray-500 text-xs font-bold">Today</span>
                         </div>
                         <h3 class="text-gray-400 text-sm font-medium">Active Guests</h3>
-                        <p id="stat-guests" class="text-2xl font-bold text-white mt-1">...</p>
+                        <p id="stat-guests" class="text-2xl font-bold text-white mt-1">0</p>
                     </div>
                     <!-- Stat 4 -->
                     <div class="glass-panel p-6 rounded-2xl stat-card transition-all duration-300">
@@ -296,12 +297,12 @@
                             <div class="p-2 bg-orange-500/10 rounded-lg text-orange-500">
                                 <span class="material-symbols-outlined">timelapse</span>
                             </div>
-                            <span class="text-red-500 text-xs font-bold flex items-center">
-                                -2m <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                            <span class="text-gray-500 text-xs font-bold flex items-center">
+                                --
                             </span>
                         </div>
                         <h3 class="text-gray-400 text-sm font-medium">Avg. Prep Time</h3>
-                        <p class="text-2xl font-bold text-white mt-1">18 min</p>
+                        <p class="text-2xl font-bold text-white mt-1">0 min</p>
                     </div>
                 </div>
 
@@ -317,27 +318,10 @@
                                     Week</button>
                             </div>
                             <!-- Mock Chart Bars -->
-                            <div class="h-64 flex items-end justify-between gap-2 px-2">
-                                <div
-                                    class="w-full bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all relative group h-[40%]">
-                                </div>
-                                <div
-                                    class="w-full bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all relative group h-[60%]">
-                                </div>
-                                <div
-                                    class="w-full bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all relative group h-[55%]">
-                                </div>
-                                <div
-                                    class="w-full bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all relative group h-[75%]">
-                                </div>
-                                <div
-                                    class="w-full bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all relative group h-[90%]">
-                                </div>
-                                <div
-                                    class="w-full bg-primary rounded-t-sm shadow-[0_0_15px_rgba(201,162,77,0.4)] relative group h-[95%]">
-                                </div>
-                                <div
-                                    class="w-full bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all relative group h-[85%]">
+                            <div class="h-64 flex items-end justify-between gap-2 px-2" id="revenue-chart-container">
+                                <!-- Bars will be injected by JS -->
+                                <div class="w-full h-full flex items-center justify-center text-gray-600 text-xs">
+                                    No data available
                                 </div>
                             </div>
                             <div
@@ -381,13 +365,12 @@
                             <h3 class="text-lg font-bold text-white mb-4">Kitchen Load</h3>
                             <div class="flex items-center gap-4 mb-6">
                                 <div
-                                    class="size-16 rounded-full border-4 border-primary/20 border-t-primary flex items-center justify-center animate-spin-slow">
-                                    <span class="text-lg font-bold text-white animate-none"
-                                        style="animation-direction: reverse;">78%</span>
+                                    class="size-16 rounded-full border-4 border-gray-700 border-t-primary flex items-center justify-center">
+                                    <span class="text-lg font-bold text-white" id="kitchen-load-value">0%</span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-white">High Demand</p>
-                                    <p class="text-xs text-gray-400">Est. delay: 15 mins</p>
+                                    <p class="text-sm font-medium text-white" id="kitchen-load-status">Low Demand</p>
+                                    <p class="text-xs text-gray-400" id="kitchen-load-delay">Est. delay: 0 mins</p>
                                 </div>
                             </div>
                         </div>
@@ -395,18 +378,8 @@
                         <!-- Top Selling Items -->
                         <div class="glass-panel p-6 rounded-2xl border border-white/5 flex-1">
                             <h3 class="text-lg font-bold text-white mb-4">Trending Dishes</h3>
-                            <div class="space-y-4">
-                                <!-- Trending Item -->
-                                <div class="flex items-center gap-3">
-                                    <div class="size-10 rounded-lg bg-gray-800 overflow-hidden">
-                                        <div class="w-full h-full bg-gray-700"></div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="text-sm font-medium text-white">Truffle Pasta</p>
-                                        <p class="text-xs text-gray-500">42 orders today</p>
-                                    </div>
-                                    <span class="text-sm font-bold text-white">₹850</span>
-                                </div>
+                            <div class="space-y-4" id="trending-dishes-container">
+                                <p class="text-gray-500 text-xs text-center py-4">Not enough data yet.</p>
                             </div>
                         </div>
                     </div>
@@ -621,130 +594,127 @@
                             </div>
                         </div>
                         <div class="mt-8">
-                            <h3 class="font-bold text-white mb-2">Quick Actions</h3>
-                            <button onclick="showAlert('Reservation system coming soon!')"
-                                class="w-full bg-white/5 hover:bg-white/10 text-gray-300 text-sm py-2 rounded mb-2">Create
-                                Reservation</button>
-                            <button onclick="showAlert('Select two adjacent tables to merge.')"
-                                class="w-full bg-white/5 hover:bg-white/10 text-gray-300 text-sm py-2 rounded">Merge
-                                Tables</button>
-                        </div>
-                    </div>
-
-                    <!-- Layout Grid -->
-                    <div class="flex-1 glass-panel p-8 rounded-xl min-h-[600px] relative bg-grid-pattern">
-                        <!-- Zones Title (Absolute for visuals) -->
-                        <div class="absolute top-4 left-8 text-gray-500 font-bold uppercase tracking-widest text-xs">
-                            Main Dining Hall</div>
-
-                        <div id="tables-grid" class="grid grid-cols-4 gap-12 mt-8">
-                            <!-- JS Injected Tables -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ================= VIEW: REPORTS ================= -->
-            <div id="view-reports" class="view-section">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="glass-panel p-6 rounded-xl">
-                        <h3 class="font-bold text-white mb-4">Weekly Sales</h3>
-                        <!-- Pure CSS Bar Chart (Mock) -->
-                        <div class="flex items-end justify-between h-64 gap-2 pt-4 border-t border-white/5">
-                            <div
-                                class="w-full bg-primary h-[40%] rounded-t opacity-50 hover:opacity-100 transition-opacity relative group">
-                            </div>
-                            <div
-                                class="w-full bg-primary h-[60%] rounded-t opacity-50 hover:opacity-100 transition-opacity relative group">
-                            </div>
-                            <div
-                                class="w-full bg-primary h-[45%] rounded-t opacity-50 hover:opacity-100 transition-opacity relative group">
-                            </div>
-                            <div
-                                class="w-full bg-primary h-[80%] rounded-t opacity-50 hover:opacity-100 transition-opacity relative group">
-                            </div>
-                            <div
-                                class="w-full bg-primary h-[90%] rounded-t opacity-50 hover:opacity-100 transition-opacity relative group">
-                            </div>
-                            <div class="w-full bg-primary h-[100%] rounded-t shadow-[0_0_20px_#c9a24d] relative group">
-                            </div>
-                            <div
-                                class="w-full bg-primary h-[70%] rounded-t opacity-50 hover:opacity-100 transition-opacity relative group">
-                            </div>
-                        </div>
-                        <div class="flex justify-between text-xs text-gray-500 mt-2 font-mono">
-                            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
-                        </div>
-                    </div>
-                    <div class="glass-panel p-6 rounded-xl">
-                        <h3 class="font-bold text-white mb-4">Order Sources</h3>
-                        <div class="flex items-center justify-center h-64">
-                            <!-- Simple CSS Pie Chart representation -->
-                            <div
-                                class="size-48 rounded-full border-[16px] border-primary border-r-transparent border-b-primary/30 flex items-center justify-center">
-                                <div class="text-center">
-                                    <span class="block text-2xl font-bold text-white">Total</span>
-                                    <span class="text-sm text-gray-500">1,432</span>
+                            <h3 class="font-bold text-white mb-2">Table Settings</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-xs text-gray-400">Total Tables</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" id="table-count-input"
+                                            class="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-primary"
+                                            placeholder="10">
+                                        <button onclick="updateTableCount()"
+                                            class="bg-primary text-black text-xs font-bold px-3 py-1 rounded hover:bg-white transition-colors">Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div>
+                            <label class="text-xs text-gray-400">Print QR Range</label>
+                            <div class="flex gap-2 mb-2">
+                                <input type="number" id="qr-start"
+                                    class="w-1/2 bg-white/5 border border-white/10 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-primary"
+                                    placeholder="Start" value="1">
+                                <input type="number" id="qr-end"
+                                    class="w-1/2 bg-white/5 border border-white/10 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-primary"
+                                    placeholder="End" value="10">
+                            </div>
+                            <div class="mb-2">
+                                <label class="text-xs text-gray-400">Server IP/Host</label>
+                                <input type="text" id="qr-host"
+                                    class="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-primary"
+                                    placeholder="e.g. 192.168.1.5:5000">
+                                <p class="text-[10px] text-gray-500 mt-1">Run 'ipconfig' to find your IP for mobile
+                                    scanning.</p>
+                            </div>
+                            <button onclick="printQRCodes()"
+                                class="w-full bg-white/5 hover:bg-white/10 text-gray-300 text-sm py-2 rounded flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-sm">qr_code_2</span> Print Selected
+                            </button>
+                        </div>
+                        <button onclick="showAlert('Select two adjacent tables to merge.')"
+                            class="w-full bg-white/5 hover:bg-white/10 text-gray-300 text-sm py-2 rounded">Merge
+                            Tables</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ================= VIEW: TRANSACTIONS ================= -->
-            <div id="view-transactions" class="view-section">
-                <div class="glass-panel rounded-xl overflow-hidden border border-white/5">
-                    <div class="p-6 border-b border-white/5">
-                        <h3 class="font-bold text-white">Transaction History</h3>
-                    </div>
-                    <table class="w-full text-left text-sm text-gray-400">
-                        <thead class="bg-white/5 uppercase text-xs">
-                            <tr>
-                                <th class="px-6 py-4">Transaction ID</th>
-                                <th class="px-6 py-4">Date</th>
-                                <th class="px-6 py-4">Method</th>
-                                <th class="px-6 py-4">Status</th>
-                                <th class="px-6 py-4 text-right">Amount</th>
-                            </tr>
-                        </thead>
-                        </td>
-                        <td class="px-6 py-4 text-right text-white">₹2,400</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 text-white font-mono">TXN_883920</td>
-                            <td class="px-6 py-4">Dec 17, 07:05 PM</td>
-                            <td class="px-6 py-4 flex items-center gap-2"><span
-                                    class="material-symbols-outlined text-sm">phone_iphone</span> UPI</td>
-                            <td class="px-6 py-4"><span
-                                    class="text-green-500 text-xs border border-green-500/30 bg-green-500/10 px-2 py-0.5 rounded">Success</span>
-                            </td>
-                            <td class="px-6 py-4 text-right text-white">₹850</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 text-white font-mono">TXN_883919</td>
-                            <td class="px-6 py-4">Dec 17, 06:45 PM</td>
-                            <td class="px-6 py-4 flex items-center gap-2"><span
-                                    class="material-symbols-outlined text-sm">payments</span> Cash</td>
-                            <td class="px-6 py-4"><span
-                                    class="text-green-500 text-xs border border-green-500/30 bg-green-500/10 px-2 py-0.5 rounded">Success</span>
-                            </td>
-                            <td class="px-6 py-4 text-right text-white">₹1,200</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 text-white font-mono opacity-50">TXN_883918</td>
-                            <td class="px-6 py-4 opacity-50">Dec 17, 06:30 PM</td>
-                            <td class="px-6 py-4 flex items-center gap-2 opacity-50"><span
-                                    class="material-symbols-outlined text-sm">credit_card</span> Mastercard</td>
-                            <td class="px-6 py-4"><span
-                                    class="text-red-500 text-xs border border-red-500/30 bg-red-500/10 px-2 py-0.5 rounded">Failed</span>
-                            </td>
-                            <td class="px-6 py-4 text-right text-white opacity-50">₹3,500</td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <!-- Layout Grid -->
+            <div class="flex-1 glass-panel p-8 rounded-xl min-h-[600px] relative bg-grid-pattern">
+                <!-- Zones Title (Absolute for visuals) -->
+                <div class="absolute top-4 left-8 text-gray-500 font-bold uppercase tracking-widest text-xs">
+                    Main Dining Hall</div>
+
+                <div id="tables-grid" class="grid grid-cols-4 gap-12 mt-8">
+                    <!-- JS Injected Tables -->
                 </div>
             </div>
+        </div>
+        </div>
+
+        <!-- ================= VIEW: REPORTS ================= -->
+        <div id="view-reports" class="view-section">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="glass-panel p-6 rounded-xl">
+                    <h3 class="font-bold text-white mb-4">Weekly Sales</h3>
+                    <!-- Pure CSS Bar Chart (Mock) -->
+                    <div class="flex items-end justify-between h-64 gap-2 pt-4 border-t border-white/5"
+                        id="weekly-sales-chart">
+                        <div class="w-full h-full flex items-center justify-center text-gray-600 text-xs">No data
+                            available</div>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500 mt-2 font-mono">
+                        <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                    </div>
+                </div>
+                <div class="glass-panel p-6 rounded-xl">
+                    <h3 class="font-bold text-white mb-4">Order Sources</h3>
+                    <div class="flex items-center justify-center h-64" id="order-sources-chart">
+                        <p class="text-gray-500 text-xs">No data available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW: TRANSACTIONS ================= -->
+        <div id="view-transactions" class="view-section">
+            <div class="glass-panel rounded-xl overflow-hidden border border-white/5">
+                <div class="p-6 border-b border-white/5">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-0 gap-4">
+                        <h3 class="font-bold text-white">Transaction History</h3>
+                        <div class="flex gap-2 items-center">
+                            <input type="date" id="txn-date-from" placeholder="From"
+                                class="bg-black/20 border border-white/10 text-white text-xs rounded px-2 py-1.5 focus:outline-none focus:border-primary">
+                            <span class="text-gray-500">-</span>
+                            <input type="date" id="txn-date-to" placeholder="To"
+                                class="bg-black/20 border border-white/10 text-white text-xs rounded px-2 py-1.5 focus:outline-none focus:border-primary">
+                            <button onclick="fetchTransactions()"
+                                class="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 p-1.5 rounded transition-colors">
+                                <span class="material-symbols-outlined text-sm">filter_list</span>
+                            </button>
+                        </div>
+                        <button onclick="exportTransactions()"
+                            class="text-xs bg-white/5 border border-white/10 hover:bg-white/10 text-gray-300 px-3 py-1.5 rounded flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm">download</span> Export CSV
+                        </button>
+                    </div>
+                </div>
+                <table class="w-full text-left text-sm text-gray-400">
+                    <thead class="bg-white/5 uppercase text-xs">
+                        <tr>
+                            <th class="px-6 py-4">Transaction ID</th>
+                            <th class="px-6 py-4">Date</th>
+                            <th class="px-6 py-4">Method</th>
+                            <th class="px-6 py-4">Status</th>
+                            <th class="px-6 py-4 text-right">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactions-body" class="divide-y divide-white/5">
+                        <!-- JS Injected -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         </div>
         <!-- GENERIC MODAL -->
@@ -829,6 +799,50 @@
         });
 
 
+
+        // Fetch Waiter Calls (New Feature)
+        async function fetchWaiterCalls() {
+            try {
+                // Mock response if endpoint fails or returns 404
+                let calls = [];
+                try {
+                    const res = await fetch("/api/v1/waiter/calls");
+                    if (res.ok) calls = await res.json();
+                } catch (e) { console.warn("Waiter API not reached"); }
+
+                const list = document.getElementById("waiter-alert-list");
+                const panel = document.getElementById("waiter-alert-panel");
+                if (!list || !panel) return;
+
+                list.innerHTML = '';
+                if (calls && calls.length > 0) {
+                    panel.classList.remove("hidden");
+                    calls.forEach(call => {
+                        const div = document.createElement("div");
+                        div.className = "flex justify-between items-center text-sm bg-white/5 p-2 rounded";
+                        div.innerHTML = `
+                            <span class="text-white">Table ${call.tableNo}</span>
+                            <span class="text-gray-400 text-xs">${new Date(call.createdAt).toLocaleTimeString()}</span>
+                            <button onclick="resolveWaiterCall('${call._id}')" class="text-xs bg-red-500/20 text-red-500 px-2 py-1 rounded hover:bg-red-500 hover:text-white">Resolve</button>
+                        `;
+                        list.appendChild(div);
+                    });
+                } else {
+                    panel.classList.add("hidden");
+                }
+            } catch (err) { console.error("Waiter calls error", err); }
+        }
+
+        async function resolveWaiterCall(id) {
+            try {
+                await fetch(`/api/v1/waiter/calls/${id}/resolve`, { method: 'PUT' });
+                fetchWaiterCalls();
+            } catch (e) { }
+        }
+
+        // Auto-poll waiter calls
+        setInterval(fetchWaiterCalls, 10000);
+
         function switchTab(tabId) {
             // 1. Hide all views
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
@@ -857,24 +871,138 @@
         async function fetchStats() {
             try {
                 // Use Analytics Controller (Branch Aware)
-                const res = await fetch("/api/v1/analytics/dashboard");
+                const res = await fetch("/api/v1/stats/dashboard");
                 const data = await res.json();
 
+                // 1. Core Metrics
                 if (document.getElementById("stat-revenue"))
-                    document.getElementById("stat-revenue").textContent = "₹" + data.revenue.toLocaleString();
+                    document.getElementById("stat-revenue").textContent = "₹" + (data.revenue ? data.revenue.toLocaleString() : "0");
                 if (document.getElementById("stat-orders"))
-                    document.getElementById("stat-orders").textContent = data.orders;
+                    document.getElementById("stat-orders").textContent = data.orders || 0;
                 if (document.getElementById("stat-guests"))
-                    document.getElementById("stat-guests").textContent = data.active_guests;
+                    document.getElementById("stat-guests").textContent = data.active_guests || 0;
+
+                // Prep Time
+                const prepEl = document.querySelector("#view-dashboard .text-2xl.font-bold:nth-of-type(1)"); // Or by direct ID if I added one
+                const prepCard = document.querySelectorAll(".stat-card")[3];
+                if (prepCard) prepCard.querySelector("p").textContent = (data.avg_prep_time || 0) + " min";
+
+                // 2. Growth Indicators
+                const renderGrowth = (id, percent) => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    const isPositive = percent >= 0;
+                    const color = isPositive ? 'text-green-500' : 'text-red-500';
+                    const icon = isPositive ? 'arrow_upward' : 'arrow_downward';
+                    el.className = `${color} text-xs font-bold flex items-center`;
+                    el.innerHTML = `${Math.abs(percent).toFixed(1)}% <span class="material-symbols-outlined text-[14px]">${icon}</span>`;
+                };
+
+                renderGrowth("revenue-growth", data.revenue_growth || 0);
+                renderGrowth("orders-growth", data.orders_growth || 0);
+
+                // 3. Kitchen Load
+                const loadVal = document.getElementById("kitchen-load-value");
+                const loadStatus = document.getElementById("kitchen-load-status");
+                if (loadVal) {
+                    const val = data.kitchen_load?.value || 0;
+                    loadVal.textContent = val + "%";
+                    // Update visual border color or spin based on load could be cool
+                    // For now text update
+                }
+                if (loadStatus) {
+                    const val = data.kitchen_load?.value || 0;
+                    if (val > 80) loadStatus.textContent = "Critical Demand";
+                    else if (val > 50) loadStatus.textContent = "High Demand";
+                    else if (val > 20) loadStatus.textContent = "Moderate";
+                    else loadStatus.textContent = "Low Demand";
+
+                    document.getElementById("kitchen-load-delay").textContent = "Est. delay: " + (Math.ceil(val / 10) * 2) + " mins";
+                }
+
+                // 4. Trending Items
+                const trendContainer = document.getElementById("trending-dishes-container");
+                if (trendContainer && data.trending_items) {
+                    if (data.trending_items.length === 0) {
+                        trendContainer.innerHTML = '<p class="text-gray-500 text-xs text-center py-4">No top items yet.</p>';
+                    } else {
+                        trendContainer.innerHTML = data.trending_items.map((item, i) => `
+                            <div class="flex items-center gap-3">
+                                <div class="size-10 rounded-lg bg-gray-800 overflow-hidden flex items-center justify-center text-white font-bold text-xs border border-white/10">
+                                    #${i + 1}
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-white">${item.name}</p>
+                                    <p class="text-xs text-gray-500">${item.qty} ordered today</p>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }
+
             } catch (err) {
                 console.error("Failed to load stats", err);
             }
         }
 
+        // Fetch Recent Orders (Dashboard Widget)
+        async function fetchRecentOrders() {
+            try {
+                const res = await fetch("/api/v1/orders");
+                let orders = await res.json();
+
+                // Sort by date desc
+                orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                // Take top 5
+                const recent = orders.slice(0, 5);
+
+                const tbody = document.getElementById('recent-orders-body');
+                if (!tbody) return;
+
+                tbody.innerHTML = '';
+
+                if (recent.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500 text-xs">No recent orders</td></tr>';
+                    return;
+                }
+
+                recent.forEach(order => {
+                    const row = document.createElement('tr');
+                    // Schema uses 'quantity', fallback to 'qty' just in case
+                    const itemsSummary = order.items.map(i => `${i.quantity || i.qty || 1}x ${i.name}`).join(', ');
+
+                    let statusColor = 'text-gray-400';
+                    if (order.status === 'New') statusColor = 'text-blue-400';
+                    if (order.status === 'Cooking') statusColor = 'text-orange-400';
+                    if (order.status === 'Ready') statusColor = 'text-green-400';
+
+                    // Safe Field Access
+                    const orderId = order.id || order._id;
+                    const tableNum = order.tableNo || order.table_no || '?';
+
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-mono text-white">#${orderId.toString().slice(-4)}</td>
+                        <td class="px-6 py-4"><span class="bg-white/10 px-2 py-1 rounded text-xs text-white">Table ${tableNum}</span></td>
+                        <td class="px-6 py-4 text-gray-400 truncate max-w-[150px]" title="${itemsSummary}">${itemsSummary}</td>
+                        <td class="px-6 py-4"><span class="${statusColor} text-xs border border-white/10 px-2 py-1 rounded">${order.status}</span></td>
+                        <td class="px-6 py-4 text-right font-bold text-primary">₹${order.total}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (err) { console.error("Recent orders failed", err); }
+        }
+
         // Fetch Orders
         async function fetchOrders() {
             try {
-                const res = await fetch("/api/v1/orders");
+                // Determine context
+                let url = "/api/v1/orders";
+                if (currentRestaurant && currentRestaurant.id) {
+                    url += `?restaurantId=${currentRestaurant.id}`;
+                }
+
+                const res = await fetch(url);
                 const orders = await res.json();
 
                 // Clear Cols
@@ -887,37 +1015,52 @@
 
                 let cNew = 0, cCook = 0, cReady = 0;
 
+                if (!Array.isArray(orders)) {
+                    console.error("Orders return format invalid", orders);
+                    return;
+                }
+
                 orders.forEach(order => {
                     const card = document.createElement("div");
                     card.className = "glass-panel p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors cursor-grab active:cursor-grabbing";
 
-                    let itemsHtml = order.items.map(i => `<p>${i.qty}x ${i.name}</p>`).join('');
+                    // Robust item mapping
+                    let itemsHtml = "No items";
+                    if (order.items && order.items.length > 0) {
+                        itemsHtml = order.items.map(i => `<p>${i.quantity || i.qty || 1}x ${i.name}</p>`).join('');
+                    }
+
+                    // Field Mapping Checks
+                    const orderId = order.id || order._id;
+                    const orderTime = order.createdAt || order.timestamp || new Date().toISOString();
+                    const tableNum = order.tableNo || order.table_no || '?';
+
                     let actionBtn = '';
                     let targetCol = null;
 
                     if (order.status === 'New') {
                         cNew++;
                         targetCol = newCol;
-                        actionBtn = `<button onclick="updateStatus(${order.id}, 'Cooking')" class="text-primary hover:text-white">Start Cooking</button>`;
+                        actionBtn = `<button onclick="updateStatus('${orderId}', 'Cooking')" class="text-primary hover:text-white border border-primary/20 px-2 py-1 rounded hover:bg-primary/10">Start Cooking</button>`;
                     } else if (order.status === 'Cooking') {
                         cCook++;
                         targetCol = cookCol;
-                        actionBtn = `<button onclick="updateStatus(${order.id}, 'Ready')" class="text-primary hover:text-white">Mark Ready</button>`;
+                        actionBtn = `<button onclick="updateStatus('${orderId}', 'Ready')" class="text-primary hover:text-white border border-primary/20 px-2 py-1 rounded hover:bg-primary/10">Mark Ready</button>`;
                     } else if (order.status === 'Ready') {
                         cReady++;
                         targetCol = readyCol;
-                        actionBtn = `<button onclick="updateStatus(${order.id}, 'Served')" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500">Serve</button>`;
+                        actionBtn = `<button onclick="updateStatus('${orderId}', 'Served')" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500">Serve</button>`;
                     }
 
                     if (targetCol) {
                         card.innerHTML = `
                             <div class="flex justify-between mb-2">
-                                <span class="font-bold text-white">#ORD-${order.id}</span>
-                                <span class="text-xs text-gray-400">${new Date(order.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                <span class="font-bold text-white">#ORD-${orderId.toString().slice(-4)}</span>
+                                <span class="text-xs text-gray-400">${new Date(orderTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
                             <div class="text-sm text-gray-300 mb-3">${itemsHtml}</div>
                             <div class="flex justify-between items-center text-xs">
-                                <span class="bg-blue-500/10 text-blue-400 px-2 py-1 rounded">${order.table_no}</span>
+                                <span class="bg-blue-500/10 text-blue-400 px-2 py-1 rounded">Table ${tableNum}</span>
                                 ${actionBtn}
                             </div>
                         `;
@@ -958,8 +1101,13 @@
                 data.forEach(item => {
                     const row = document.createElement('tr');
                     const lowStock = item.quantity <= item.lowStockThreshold;
+                    const itemName = item.menuId ? item.menuId.name : (item.tempName || 'Unknown Item');
+                    const menuId = item.menuId ? (item.menuId._id || item.menuId.id) : null;
+
+                    if (!menuId) return; // Skip invalid items
+
                     row.innerHTML = `
-                        <td class="px-6 py-4 font-medium text-white">${item.menuId ? item.menuId.name : 'Unknown Item'}</td>
+                        <td class="px-6 py-4 font-medium text-white">${itemName}</td>
                         <td class="px-6 py-4">
                             <input type="number" value="${item.quantity}" 
                                 onchange="updateStock('${item.menuId._id}', this.value)"
@@ -988,21 +1136,26 @@
             } catch (e) { alert("Failed to update stock"); }
         }
         // Fetch Menu
+        let currentContextMenuData = [];
+
         async function fetchMenu() {
             try {
                 const res = await fetch("/api/v1/menu");
                 const menu = await res.json();
+                currentContextMenuData = menu;
                 const grid = document.getElementById("menu-grid");
                 if (grid) {
                     grid.innerHTML = '';
                     menu.forEach(item => {
                         const isPending = item.status === 'pending';
-                        // Image Handling
+                        // Image Handling - Robust Check
                         let imageHtml = `<div class="w-full h-full bg-gray-700 flex items-center justify-center text-gray-400 font-bold text-xl">${item.name[0]}</div>`;
-                        if (item.image_url && item.image_url.startsWith('data:image')) {
-                            imageHtml = `<img src="${item.image_url}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">`;
+                        const imgUrl = item.imageUrl || item.image_url; // Handle both camelCase and snake_case
+                        if (imgUrl && (imgUrl.startsWith('data:image') || imgUrl.startsWith('http'))) {
+                            imageHtml = `<img src="${imgUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">`;
                         }
 
+                        const itemId = item._id || item.id;
                         grid.innerHTML += `
                         <div class="glass-panel rounded-xl overflow-hidden group ${isPending ? 'border border-yellow-500/50' : ''} relative">
                             ${isPending ? '<div class="absolute top-2 left-2 z-10 bg-yellow-500 text-black text-[10px] font-bold px-2 py-0.5 rounded">PENDING APPROVAL</div>' : ''}
@@ -1015,13 +1168,13 @@
                                     <h3 class="font-bold text-white text-md">${item.name}</h3>
                                     ${!isPending ? `
                                     <div class="relative inline-block w-8 h-4 align-middle select-none transition duration-200 ease-in">
-                                        <input type="checkbox" ${item.available ? 'checked' : ''} class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer ${item.available ? 'bg-primary right-0' : 'bg-gray-500 right-4'}"/>
+                                        <input type="checkbox" onchange="toggleAvailability('${itemId}', this.checked)" ${item.available ? 'checked' : ''} class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer ${item.available ? 'bg-primary right-0' : 'bg-gray-500 right-4'}"/>
                                     </div>` : ''}
                                 </div>
                                 <p class="text-xs text-gray-500 line-clamp-2 mb-4">${item.category}</p>
                                 <div class="flex gap-2">
-                                    <button class="flex-1 border border-white/10 py-1.5 rounded hover:bg-white/5 text-xs text-gray-300" ${isPending ? 'disabled' : ''}>Edit</button>
-                                    <button onclick="deleteMenu(${item.id})" class="flex-1 border border-red-500/30 py-1.5 rounded hover:bg-red-500/10 text-xs text-red-500">Delete</button>
+                                    <button onclick="editMenu('${itemId}')" class="flex-1 border border-white/10 py-1.5 rounded hover:bg-white/5 text-xs text-gray-300" ${isPending ? 'disabled' : ''}>Edit</button>
+                                    <button onclick="deleteMenu('${itemId}')" class="flex-1 border border-red-500/30 py-1.5 rounded hover:bg-red-500/10 text-xs text-red-500">Delete</button>
                                 </div>
                             </div>
                         </div>`;
@@ -1030,10 +1183,49 @@
             } catch (err) { console.error("Failed to fetch menu", err); }
         }
 
+        async function toggleAvailability(id, isActive) {
+            try {
+                const res = await fetch(`/api/v1/menu/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ available: isActive })
+                });
+
+                if (res.ok) {
+                    fetchMenu(); // Re-render to update UI state reliably
+                } else {
+                    showAlert("Failed to update status");
+                    fetchMenu(); // Revert UI
+                }
+            } catch (e) {
+                console.error(e);
+                showAlert("Error updating status");
+            }
+        }
+
         async function deleteMenu(id) {
+            console.log("Attempting to delete menu item:", id);
+            if (!id || id === 'undefined') {
+                return showAlert("Error: Invalid Menu ID");
+            }
             if (!await showConfirm("Are you sure you want to delete this menu item?")) return;
-            await fetch(`/api/v1/menu/${id}`, { method: 'DELETE' });
-            fetchMenu();
+
+            try {
+                const res = await fetch(`/api/v1/menu/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+
+                if (res.ok) {
+                    console.log("Delete success:", data);
+                    await showAlert("Menu item deleted successfully.");
+                    fetchMenu();
+                } else {
+                    console.error("Delete failed:", data);
+                    showAlert(`Failed to delete: ${data.message || 'Unknown error'}`);
+                }
+            } catch (e) {
+                console.error("Delete exception:", e);
+                showAlert("Network error while deleting item.");
+            }
         }
 
         // Fetch History
@@ -1100,19 +1292,23 @@
                     // Items list
                     const itemsHtml = order.items.map(i => `
                         <div class="flex justify-between items-center border-b border-white/10 py-2">
-                             <span class="font-bold text-lg text-white">${i.quantity}x ${i.name}</span>
+                             <span class="font-bold text-lg text-white">${i.quantity || i.qty || 1}x ${i.name}</span>
                         </div>
                     `).join('');
 
                     const ticket = document.createElement('div');
                     ticket.className = `bg-gray-800 rounded-xl p-4 border-l-4 ${order.status === 'New' ? 'border-blue-500' : 'border-orange-500'} flex flex-col h-full justify-between`;
 
+                    // Robust table/id
+                    const tableNum = order.tableNo || order.table_no || '?';
+                    const oId = order.id || order._id;
+
                     ticket.innerHTML = `
                         <div>
                             <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <span class="block text-2xl font-bold text-white">Table ${order.tableNo}</span>
-                                    <span class="text-xs text-gray-400">#${order.id.slice(-4)}</span>
+                                    <span class="block text-2xl font-bold text-white">Table ${tableNum}</span>
+                                    <span class="text-xs text-gray-400">#${oId.toString().slice(-4)}</span>
                                 </div>
                                 <div class="text-right">
                                     <span class="block text-xl font-mono font-bold ${timerColor}">${elapsed}m</span>
@@ -1124,8 +1320,8 @@
                         </div>
                         <div class="mt-4">
                             ${order.status === 'New'
-                            ? `<button onclick="updateStatus('${order.id}', 'Cooking')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded text-xl">START COOKING</button>`
-                            : `<button onclick="updateStatus('${order.id}', 'Ready')" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded text-xl">MARK READY</button>`
+                            ? `<button onclick="updateStatus('${oId}', 'Cooking')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded text-xl">START COOKING</button>`
+                            : `<button onclick="updateStatus('${oId}', 'Ready')" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded text-xl">MARK READY</button>`
                         }
                         </div>
                     `;
@@ -1388,64 +1584,230 @@
                 showAlert("Error adding item");
             }
         }
+
+        async function editMenu(itemId) {
+            const item = currentContextMenuData.find(i => i.id === itemId);
+            if (!item) return showAlert("Error: Item not found");
+
+            const data = await openModal({
+                title: 'Edit Menu Item',
+                fields: [
+                    { name: 'name', label: 'Item Name', type: 'text', defaultValue: item.name },
+                    { name: 'price', label: 'Price (₹)', type: 'number', defaultValue: item.price },
+                    { name: 'category', label: 'Category', type: 'select', options: ['Main', 'Starter', 'Dessert', 'Drink'], defaultValue: item.category }
+                ],
+                submitLabel: 'Save Changes'
+            });
+
+            if (!data) return;
+
+            try {
+                const res = await fetch(`/api/v1/menu/${item.id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: data.name,
+                        price: parseFloat(data.price),
+                        category: data.category
+                    })
+                });
+
+                if (res.ok) {
+                    fetchMenu();
+                    showAlert("Item updated successfully");
+                } else {
+                    showAlert("Update failed");
+                }
+            } catch (e) { console.error(e); showAlert("Error updating item"); }
+        }
+
+        function printInvoice(orderId) {
+            const printWindow = window.open('', '_blank', 'width=400,height=600');
+            printWindow.document.write(`<html><head><title>Print Receipt</title></head><body style="font-family: monospace; padding: 20px;">
+                <h3 style="text-align:center">Tap2Serve</h3>
+                <p style="text-align:center">Order #${orderId.slice(-4)}</p>
+                <hr/>
+                <p>Date: ${new Date().toLocaleString()}</p>
+                <p>This is a customer copy.</p>
+                <hr/>
+                <script>window.print();<\/script>
+</body>
+
+</html>`);
+            printWindow.document.close();
+        }
+
+        async function exportTransactions() {
+            try {
+                const res = await fetch("/api/v1/orders");
+                const data = await res.json();
+                const paid = data.filter(o => o.status === 'Served' || o.status === 'Paid');
+
+                if (paid.length === 0) return showAlert("No transactions to export");
+
+                const headers = ['Order ID', 'Date', 'Table', 'Items', 'Total', 'Status'];
+                const rows = paid.map(o => [
+                    o.id,
+                    new Date(o.createdAt).toISOString(),
+                    o.table_no,
+                    o.items.map(i => `${i.quantity}x ${i.name}`).join(';'),
+                    o.total,
+                    o.status
+                ]);
+
+                const csvContent = [headers.join(',')].concat(rows.map(r => r.join(','))).join('\n');
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `transactions_${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+            } catch (e) { console.error(e); showAlert("Export failed"); }
+        }
+        // Fetch Reports (Sales Chart)
         // Fetch Reports (Sales Chart)
         async function fetchReports() {
             try {
                 const res = await fetch("/api/v1/stats/reports");
                 const data = await res.json();
 
-                // Update Bar Chart
-                const chartContainer = document.querySelector("#view-reports .flex.items-end");
-                if (chartContainer && data.weekly) {
-                    const maxVal = Math.max(...data.weekly.map(d => d.total)) || 1000;
+                // Adapter: Backend returns { trends: [ {_id: 'YYYY-MM-DD', dailyRevenue: N} ], statusDistribution: [] }
+                let weeklyData = [];
+                if (data.trends && Array.isArray(data.trends)) {
+                    // Sort by date just in case
+                    data.trends.sort((a, b) => new Date(a._id) - new Date(b._id));
+                    // Take last 7
+                    const recent = data.trends.slice(-7);
+                    weeklyData = recent.map(t => {
+                        const date = new Date(t._id);
+                        return {
+                            day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+                            total: t.dailyRevenue || 0
+                        };
+                    });
+                } else if (data.weekly) {
+                    weeklyData = data.weekly; // Fallback to mock format if changed
+                }
 
-                    chartContainer.innerHTML = data.weekly.map(day => `
-                        <div class="w-full bg-primary rounded-t relative group transition-all duration-500 hover:opacity-100 opacity-80" 
-                             style="height: ${Math.max((day.total / maxVal) * 100, 5)}%">
-                             <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">₹${day.total}</div>
-                        </div>
-                    `).join('');
+                // Update Reports View Chart
+                const reportsChart = document.getElementById("weekly-sales-chart");
+                const dashboardChart = document.getElementById("revenue-chart-container");
+
+                if (weeklyData.length > 0) {
+                    const maxVal = Math.max(...weeklyData.map(d => d.total)) || 1000;
+                    const chartHtml = weeklyData.map(day => `
+<div class="w-full bg-primary rounded-t relative group transition-all duration-500 hover:opacity-100 opacity-80"
+    style="height: ${Math.max((day.total / maxVal) * 100, 5)}%">
+    <div
+        class="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+        ₹${day.total}</div>
+</div>
+`).join('');
+
+                    if (reportsChart) reportsChart.innerHTML = chartHtml;
+                    if (dashboardChart) dashboardChart.innerHTML = chartHtml;
 
                     // Update Labels
                     const labelsContainer = document.querySelector("#view-reports .flex.justify-between.text-xs");
                     if (labelsContainer) {
-                        labelsContainer.innerHTML = data.weekly.map(d => `<span>${d.day}</span>`).join('');
+                        labelsContainer.innerHTML = weeklyData.map(d => `<span>${d.day}</span>`).join('');
+                    }
+                    // Update Dashboard Labels
+                    const dashLabels = document.querySelector("#view-dashboard .text-xs.uppercase");
+                    if (dashLabels) {
+                        dashLabels.innerHTML = weeklyData.map(d => `<span>${d.day}</span>`).join('');
+                    }
+
+                } else {
+                    const emptyHtml = `<div class="w-full h-full flex items-center justify-center text-gray-600 text-xs">No data available</div>`;
+                    if (reportsChart) reportsChart.innerHTML = emptyHtml;
+                    if (dashboardChart) dashboardChart.innerHTML = emptyHtml;
+                }
+
+                // Update Order Sources (Status Distribution)
+                const sourcesChart = document.getElementById("order-sources-chart");
+                if (sourcesChart && data.statusDistribution) {
+                    const total = data.statusDistribution.reduce((acc, curr) => acc + curr.count, 0);
+                    if (total > 0) {
+                        sourcesChart.innerHTML = data.statusDistribution.map(s => {
+                            const pct = Math.round((s.count / total) * 100);
+                            return `<div class="w-full mb-3">
+                                       <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                          <span>${s._id}</span>
+                                          <span>${pct}% (${s.count})</span>
+                                       </div>
+                                       <div class="w-full bg-white/10 rounded-full h-2">
+                                          <div class="bg-primary h-2 rounded-full" style="width: ${pct}%"></div>
+                                       </div>
+                                     </div>`;
+                        }).join('');
+                        sourcesChart.classList.remove("items-center", "justify-center");
+                        sourcesChart.classList.add("flex-col", "justify-start", "pt-4", "px-4", "overflow-y-auto");
                     }
                 }
+
             } catch (e) { console.error("Reports error", e); }
         }
 
         // Fetch Transactions
+        // Fetch Transactions
         async function fetchTransactions() {
             try {
-                // Transactions usually mapped to Served/Paid orders in our simplified schema
+                const dateFrom = document.getElementById('txn-date-from') ? document.getElementById('txn-date-from').value : '';
+                const dateTo = document.getElementById('txn-date-to') ? document.getElementById('txn-date-to').value : '';
+
+                // API Call (Generic fetch all for now, filter client side for MVP)
                 const res = await fetch("/api/v1/orders");
-                let data = await res.json();
-                data = data.filter(o => o.status === 'Served' || o.status === 'Paid');
+                const allOrders = await res.json();
+
+                // Filter Status
+                let data = allOrders.filter(o => o.status === 'Served' || o.status === 'Paid');
+
+                // Filter Dates
+                if (dateFrom) {
+                    const start = new Date(dateFrom);
+                    data = data.filter(o => new Date(o.createdAt) >= start);
+                }
+                if (dateTo) {
+                    const end = new Date(dateTo);
+                    end.setHours(23, 59, 59);
+                    data = data.filter(o => new Date(o.createdAt) <= end);
+                }
+
+                // Sort Descending 
+                data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
                 const tbody = document.querySelector("#view-transactions tbody");
-                if (tbody && data.length > 0) {
-                    tbody.innerHTML = data.map(txn => `
-                        <tr>
-                            <td class="px-6 py-4 text-white font-mono">
-                                #TXN-${txn.id.slice(-4)}
-                                <div class="text-[10px] text-gray-500">${txn.invoiceId || ''}</div>
-                            </td>
-                            <td class="px-6 py-4">${new Date(txn.createdAt).toLocaleString()}</td>
-                            <td class="px-6 py-4 flex items-center gap-2">
-                                <span class="material-symbols-outlined text-sm">payments</span> Cash
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="text-green-500 text-xs border border-green-500/30 bg-green-500/10 px-2 py-0.5 rounded">${txn.status}</span>
-                            </td>
-                            <td class="px-6 py-4 text-right text-white">₹${txn.total}</td>
-                            <td class="px-6 py-4 text-right">
-                                <button onclick="printInvoice('${txn.id}')" class="bg-white/10 hover:bg-white/20 p-2 rounded text-white" title="Print Bill">
-                                    <span class="material-symbols-outlined text-sm">print</span>
-                                </button>
-                            </td>
-                        </tr>
-                    `).join('');
+                if (tbody) {
+                    if (data.length === 0) {
+                        tbody.innerHTML = `<tr>
+        <td colspan="6" class="p-6 text-center text-gray-600">No transactions found</td>
+    </tr>`;
+                    } else {
+                        tbody.innerHTML = data.map(txn => `
+    <tr class="hover:bg-white/5 transition-colors">
+        <td class="px-6 py-4 text-white font-mono">
+            #TXN-${txn.id ? txn.id.slice(-4) : '???'}
+            <div class="text-[10px] text-gray-500">${txn.invoiceId || ''}</div>
+        </td>
+        <td class="px-6 py-4">${new Date(txn.createdAt).toLocaleString()}</td>
+        <td class="px-6 py-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">payments</span> Cash
+        </td>
+        <td class="px-6 py-4">
+            <span
+                class="text-green-500 text-xs border border-green-500/30 bg-green-500/10 px-2 py-0.5 rounded">${txn.status}</span>
+        </td>
+        <td class="px-6 py-4 text-right text-white">₹${txn.total}</td>
+        <td class="px-6 py-4 text-right">
+            <button onclick="printInvoice('${txn.id}')" class="bg-white/10 hover:bg-white/20 p-2 rounded text-white"
+                title="Print Bill">
+                <span class="material-symbols-outlined text-sm">print</span>
+            </button>
+        </td>
+    </tr>
+    `).join('');
+                    }
                 }
             } catch (e) { console.error("Txn error", e); }
         }
@@ -1463,11 +1825,12 @@
                 if (calls.length > 0) {
                     panel.classList.remove('hidden');
                     list.innerHTML = calls.map(call => `
-                        <div class="bg-red-500 text-white text-xs p-2 rounded flex justify-between items-center">
-                            <span>Table ${call.tableNo} (${call.type})</span>
-                            <button onclick="resolveCall('${call._id}')" class="bg-white/20 px-2 py-0.5 rounded hover:bg-white/40">✓</button>
-                        </div>
-                    `).join('');
+    <div class="bg-red-500 text-white text-xs p-2 rounded flex justify-between items-center">
+        <span>Table ${call.tableNo} (${call.type})</span>
+        <button onclick="resolveCall('${call._id}')"
+            class="bg-white/20 px-2 py-0.5 rounded hover:bg-white/40">✓</button>
+    </div>
+    `).join('');
                 } else {
                     panel.classList.add('hidden');
                 }
@@ -1496,7 +1859,8 @@
                 const activeOrder = orders.find(o => o.table_no === tableId && ['New', 'Cooking', 'Ready'].includes(o.status));
 
                 if (activeOrder) {
-                    showAlert(`Table ${tableId} is OCCUPIED.\n\nOrder #${activeOrder.id}\nStatus: ${activeOrder.status}\nTotal: ₹${activeOrder.total}`);
+                    showAlert(`Table ${tableId} is OCCUPIED.\n\nOrder #${activeOrder.id}\nStatus: ${activeOrder.status}\nTotal:
+    ₹${activeOrder.total}`);
                 } else {
                     // 2. New Order Flow
                     // Fetch Menu for Select dropdown
@@ -1543,13 +1907,15 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             table_no: tableId,
+                            status: 'New', // EXPLICITLY SET STATUS TO 'NEW'
                             items: [{
                                 name: itemName,
-                                qty: qty,
+                                quantity: qty, // Consistency: Schema mostly uses 'quantity' or 'qty'
                                 price: itemPrice,
-                                menuId: menuId // Critical for Inventory
+                                menuId: menuId
                             }],
                             total: total,
+                            restaurantId: currentRestaurant ? currentRestaurant.id : undefined, // Ensure restaurant binding
                             idempotencyKey: idempotencyKey
                         })
                     });
@@ -1567,37 +1933,7 @@
             }
         }
 
-        async function fetchRecentOrders() {
-            try {
-                const res = await fetch("/api/v1/orders");
-                const orders = await res.json();
-                const tbody = document.getElementById("recent-orders-body");
 
-                if (tbody) {
-                    // Take top 5
-                    const recent = orders.slice(0, 5);
-                    tbody.innerHTML = recent.map(o => {
-                        let statusColor = 'bg-gray-500/10 text-gray-500';
-                        if (o.status === 'New') statusColor = 'bg-blue-500/10 text-blue-500';
-                        if (o.status === 'Cooking') statusColor = 'bg-yellow-500/10 text-yellow-500';
-                        if (o.status === 'Ready') statusColor = 'bg-green-500/10 text-green-500';
-
-                        // Items summary
-                        const itemsSummary = o.items.map(i => i.name).join(', ');
-
-                        return `
-                        <tr class="hover:bg-white/5 transition-colors group cursor-pointer">
-                            <td class="px-6 py-4 font-medium text-white">#ORD-${o.id}</td>
-                            <td class="px-6 py-4">${o.table_no}</td>
-                            <td class="px-6 py-4 truncate max-w-xs">${itemsSummary}</td>
-                            <td class="px-6 py-4"><span class="px-2 py-1 rounded-full text-xs font-bold border border-white/5 ${statusColor}">${o.status}</span></td>
-                            <td class="px-6 py-4 text-right font-bold text-white">₹${o.total}</td>
-                        </tr>
-                        `;
-                    }).join('');
-                }
-            } catch (e) { console.error(e); }
-        }
 
         let currentRestaurant = null;
 
@@ -1619,78 +1955,215 @@
             if (!currentRestaurant) return;
 
             try {
-                // We infer status from Active Orders
                 const res = await fetch("/api/v1/orders");
                 const orders = await res.json();
-
-                // Get all active tables from orders (New, Cooking, Ready)
-                const activeTables = new Set(orders.filter(o => ['New', 'Cooking', 'Ready'].includes(o.status)).map(o => o.table_no));
+                const activeTables = new Set(orders.filter(o => ['New', 'Cooking', 'Ready'].includes(o.status)).map(o =>
+                    o.table_no));
 
                 const grid = document.getElementById('tables-grid');
                 if (!grid) return;
 
-                // If grid is empty, build it. If already built, just update status.
-                // Simple approach: Rebuild if count differs or empty (for initial load)
-                // But to keep animations smooth, it's better to update. 
-                // For this task, strict structure validtion -> let's rebuild on first load, then update class.
-                // Or easier: Just rebuild string and inject. Performance is fine for < 50 tables.
+                const count = currentRestaurant.tableCount || 10;
+                const input = document.getElementById('table-count-input');
+                if (input && !input.value) input.value = count;
+
+                const hostInput = document.getElementById('qr-host');
+                if (hostInput && !hostInput.value) hostInput.value = window.location.host;
 
                 let html = '';
-                // Dynamic Count
-                const count = currentRestaurant.tableCount || 10;
-
                 for (let i = 1; i <= count; i++) {
-                    const tableId = `T-${i.toString().padStart(2, '0')}`;
-                    const isOccupied = activeTables.has(tableId);
+                    const tableId = `T-${i.toString().padStart(2, '0')}`; const
+                        isOccupied = activeTables.has(tableId); const
+                            qrUrl = `menu.html?restaurantId=${currentRestaurant.id}&table=${tableId}`; html += ` <div class="relative group">
+        <div onclick="handleTableClick('${tableId}')"
+            class="aspect-square border-2 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer transition-colors
+                                        ${isOccupied ? 'bg-red-500/10 border-red-500 hover:bg-red-500/20' : 'bg-green-500/10 border-green-500 hover:bg-green-500/20'}">
+            <span class="text-2xl font-bold ${isOccupied ? 'text-red-500' : 'text-green-500'}">${tableId}</span>
+            <span class="text-xs mt-1 ${isOccupied ? 'text-red-400' : 'text-green-400'}">${isOccupied ? 'Occupied' :
+                                    'Empty'}</span>
+        </div>
 
-                    // QR Link
-                    const qrUrl = `menu.html?restaurantId=${currentRestaurant.id}&table=${tableId}`;
-
-                    html += `
-                    <div class="relative group">
-                        <div onclick="handleTableClick('${tableId}')"
-                            class="aspect-square border-2 rounded-2xl flex flex-col items-center justify-center relative cursor-pointer transition-colors
-                            ${isOccupied ?
-                            'bg-red-500/10 border-red-500 hover:bg-red-500/20' :
-                            'bg-green-500/10 border-green-500 hover:bg-green-500/20'}">
-                            
-                            <span class="text-2xl font-bold ${isOccupied ? 'text-red-500' : 'text-green-500'}">${tableId}</span>
-                            <span class="text-xs mt-1 ${isOccupied ? 'text-red-400' : 'text-green-400'}">${isOccupied ? 'Occupied' : 'Empty'}</span>
-                        </div>
-                        
-                        <!-- QR Hover -->
-                        <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                            <a href="${qrUrl}" target="_blank" class="bg-white text-black text-[10px] font-bold px-2 py-1 rounded shadow-lg whitespace-nowrap hover:bg-primary">
-                                Open QR Menu
-                            </a>
-                        </div>
-                    </div>
-                    `;
+        <!-- QR Hover -->
+        <div
+            class="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+            <a href="${qrUrl}" target="_blank"
+                class="bg-white text-black text-[10px] font-bold px-2 py-1 rounded shadow-lg whitespace-nowrap hover:bg-primary">
+                Open QR Menu
+            </a>
+        </div>
+        </div>
+        `;
                 }
-
-                // Only update if changed prevents flickering? innerHTML replacement is fast enough here.
                 grid.innerHTML = html;
 
             } catch (e) { console.error("Tables error", e); }
         }
 
+        async function updateTableCount() {
+            const count = parseInt(document.getElementById('table-count-input').value);
+            if (!count || count < 1) return showAlert("Invalid table count"); try {
+                const res = await
+                    fetch("/api/v1/restaurants/" + currentRestaurant.id, {
+                        method: 'PUT', headers: {
+                            'Content-Type'
+                                : 'application/json'
+                        }, body: JSON.stringify({ tableCount: count })
+                    }); if (res.ok) {
+                        currentRestaurant.tableCount = count; fetchTables(); showAlert("Table count updated successfully!");
+                    } else {
+                    showAlert("Failed to update settings");
+                }
+            } catch (e) {
+                console.error(e);
+                showAlert("Error saving settings");
+            }
+        }
+
+        function updatePrepTime(val) {
+            localStorage.setItem('kds_prep_time', val);
+        }
+
+        // Init Prep Time
         document.addEventListener("DOMContentLoaded", () => {
+            const stored = localStorage.getItem('kds_prep_time');
+            if (stored && document.getElementById('prep-time-input')) {
+                document.getElementById('prep-time-input').value = stored;
+            }
+        });
+
+        function printQRCodes() {
+            if (!currentRestaurant) return;
+            const totalTables = currentRestaurant.tableCount || 10;
+            const startInput = document.getElementById('qr-start');
+            const endInput = document.getElementById('qr-end');
+            const hostInput = document.getElementById('qr-host');
+
+            const host = hostInput && hostInput.value.trim() ? hostInput.value.trim() : window.location.host;
+            const protocol = window.location.protocol;
+            let start = parseInt(startInput.value) || 1;
+            let end = parseInt(endInput.value) || totalTables;
+
+            if (start < 1) start = 1; if (end > totalTables) end = totalTables;
+            if (start > end) {
+                return showAlert("Invalid Range: Start (" + start + ") cannot be greater than End (" + end + ")");
+            }
+
+            const printWindow = window.open("", "_blank");
+
+            // Build HTML string first
+            let qrHtml = "";
+            for (let i = start; i <= end; i++) {
+                const tableId = "T-" + i.toString().padStart(2, "0"); const
+                    url = protocol + "//" + host + "/testing-page/menu.html?restaurantId=" + currentRestaurant.id
+                        + "&table=" + tableId; const qrSrc = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="
+                            + encodeURIComponent(url); qrHtml += ` <div class="qr-card">
+                    <h2>${currentRestaurant.name}</h2>
+                    <div class="qr-box">
+                        <img src="${qrSrc}" />
+                    </div>
+                    <div class="table-label">Table ${tableId}</div>
+                    <div class="scan-label">Scan to Order</div>
+                    </div>`;
+            }
+
+            printWindow.document.write(`
+                    <html>
+
+                    <head>
+                        <title>Print QR Codes - ${currentRestaurant.name}</title>
+                        <style>
+                            body {
+                                font-family: sans-serif;
+                                padding: 20px;
+                            }
+
+                            .grid {
+                                display: grid;
+                                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                                gap: 20px;
+                            }
+
+                            .qr-card {
+                                border: 2px solid #000;
+                                border-radius: 10px;
+                                padding: 20px;
+                                text-align: center;
+                                page-break-inside: avoid;
+                            }
+
+                            h2 {
+                                margin: 0 0 10px 0;
+                                font-size: 16px;
+                            }
+
+                            .qr-box img {
+                                width: 120px;
+                                height: 120px;
+                            }
+
+                            .table-label {
+                                font-size: 24px;
+                                font-weight: bold;
+                                margin: 10px 0;
+                            }
+
+                            .scan-label {
+                                font-size: 12px;
+                                color: #555;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                            }
+
+                            @media print {
+                                button {
+                                    display: none;
+                                }
+                            }
+                        </style>
+                    </head>
+
+                    <body>
+                        <button onclick="window.print()"
+                            style="padding: 10px 20px; font-size: 16px; margin-bottom: 20px; cursor: pointer;">Print
+                            Now</button>
+                        <div class="grid">${qrHtml}</div>
+                    </body>
+
+                    </html>
+                    `);
+            printWindow.document.close();
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Load restaurant context first (critical for multi-tenant)
+            await fetchRestaurantDetails();
+
+            // Initial data load
             fetchStats();
             fetchOrders();
             fetchMenu();
+            fetchInventory();
+            fetchReservations();
             fetchReports();
             fetchTransactions();
             fetchTables();
             fetchRecentOrders();
-            // Poll
+            fetchWaiterCalls();
+
+            // Auto-refresh every 3 seconds
             setInterval(() => {
                 fetchOrders();
                 fetchTables();
                 fetchStats();
                 fetchRecentOrders();
+            }, 3000);
+
+            // Slower refresh for heavy data
+            setInterval(() => {
                 fetchTransactions();
                 fetchReports();
-            }, 3000);
+                fetchInventory();
+            }, 10000);
         });
     </script>
 </body>

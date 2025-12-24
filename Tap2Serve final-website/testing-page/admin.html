@@ -253,19 +253,8 @@
                                     <th class="px-6 py-4">Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-white/5 text-sm text-gray-300">
-                                <tr class="hover:bg-white/5 transition-colors">
-                                    <td class="px-6 py-4 font-bold text-white">Spice Garden</td>
-                                    <td class="px-6 py-4">₹4.2L</td>
-                                    <td class="px-6 py-4"><span
-                                            class="text-system-green text-xs font-bold">Active</span></td>
-                                </tr>
-                                <tr class="hover:bg-white/5 transition-colors">
-                                    <td class="px-6 py-4 font-bold text-white">Urban Grill</td>
-                                    <td class="px-6 py-4">₹2.8L</td>
-                                    <td class="px-6 py-4"><span
-                                            class="text-system-green text-xs font-bold">Active</span></td>
-                                </tr>
+                            <tbody id="top-restaurants-body" class="divide-y divide-white/5 text-sm text-gray-300">
+                                <!-- Dynamic Data -->
                             </tbody>
                         </table>
                     </div>
@@ -947,16 +936,32 @@
         }
 
         async function deleteUser(id) {
-            if (!await showConfirm("Are you sure you want to remove this user?")) return;
-            await fetch(`/api/v1/admin/users/${id}`, { method: 'DELETE' });
-            fetchUsers();
-            fetchAdminStats();
+            if (!await showConfirm("Are you sure you want to remove this user? This cannot be undone.")) return;
+            try {
+                const res = await fetch(`/api/v1/admin/users/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+
+                if (data.success) {
+                    await showAlert("User deleted successfully.");
+                    fetchUsers();
+                    fetchAdminStats();
+                } else {
+                    await showAlert("Failed to delete user: " + (data.message || "Unknown error"));
+                }
+            } catch (e) {
+                console.error(e);
+                await showAlert("Error connecting to server.");
+            }
         }
 
         async function fetchRestaurants() {
             try {
                 const res = await fetch('/api/v1/restaurants');
                 const data = await res.json();
+
+                // Update Top Restaurants Logic
+                updateTopRestaurants(data);
+
                 const tbody = document.getElementById('restaurants-table-body');
                 tbody.innerHTML = '';
 
@@ -979,13 +984,37 @@
         <td class="px-6 py-4"><span class="text-system-green text-xs font-bold">${r.status}</span></td>
         <td class="px-6 py-4 text-white">₹${(r.revenue / 1000).toFixed(1)}K</td>
         <td class="px-6 py-4 text-right">
-            <button onclick="deleteRestaurant(${r.id})"
+            <button onclick="deleteRestaurant('${r.id}')"
                 class="bg-white/5 hover:bg-white/10 px-2 py-1 rounded text-xs border border-white/10 text-red-400 hover:text-red-300">Delete</button>
         </td>
     </tr>
     `;
                 });
             } catch (e) { console.error(e); }
+        }
+
+        function updateTopRestaurants(restaurants) {
+            try {
+                const tbody = document.getElementById('top-restaurants-body');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+
+                const top = [...restaurants].sort((a, b) => b.revenue - a.revenue).slice(0, 3);
+
+                top.forEach(r => {
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-6 py-4 font-bold text-white">${r.name}</td>
+                            <td class="px-6 py-4">₹${(r.revenue / 1000).toFixed(1)}K</td>
+                            <td class="px-6 py-4"><span class="text-system-green text-xs font-bold">${r.status}</span></td>
+                        </tr>
+                     `;
+                });
+
+                if (top.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" class="px-6 py-4 text-gray-500 text-center">No active restaurants</td></tr>';
+                }
+            } catch (e) { console.error("Error updating top restaurants", e); }
         }
 
         async function fetchMenuRequests() {
@@ -1006,6 +1035,7 @@
                 <div>
                     <h4 class="text-white font-bold">${item.name}</h4>
                     <p class="text-xs text-gray-400">${item.category} - ₹${item.price}</p>
+                    <p class="text-xs text-primary mt-1">From: <span class="font-bold text-white">${item.restaurantId ? item.restaurantId.name : 'Unknown'}</span></p>
                 </div>
             </div>
 
@@ -1017,9 +1047,9 @@
                         class="text-xs text-gray-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20" />
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="approveMenu(${item.id})"
+                    <button onclick="approveMenu('${item.id}')"
                         class="bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded text-xs font-bold transition-colors">Approve</button>
-                    <button onclick="rejectMenu(${item.id})"
+                    <button onclick="rejectMenu('${item.id}')"
                         class="bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded text-xs font-bold transition-colors">Reject</button>
                 </div>
             </div>
@@ -1104,9 +1134,9 @@
                 class="text-gray-400 text-xs border border-white/10 px-2 py-1 rounded">${u.role}</span></td>
         <td class="px-6 py-4 text-gray-500 text-xs">Awaiting Approval</td>
         <td class="px-6 py-4 text-right">
-            <button onclick="approveUser(${u.id})"
+            <button onclick="approveUser('${u.id}')"
                 class="bg-system-green/10 hover:bg-system-green/20 text-system-green px-3 py-1.5 rounded text-xs font-bold transition-colors border border-system-green/20 mr-2">Approve</button>
-            <button onclick="deleteUser(${u.id})"
+            <button onclick="deleteUser('${u.id}')"
                 class="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded text-xs font-bold transition-colors border border-red-500/20">Reject</button>
         </td>
     </tr>
@@ -1129,7 +1159,7 @@
         <td class="px-6 py-4">--</td>
         <td class="px-6 py-4"><span class="${statusColor} font-bold capitalize">${status}</span></td>
         <td class="px-6 py-4 text-right">
-            <button onclick="deleteUser(${u.id})" class="text-xs text-red-400 hover:text-red-300">Revoke Access</button>
+            <button onclick="deleteUser('${u.id}')" class="text-xs text-red-400 hover:text-red-300">Revoke Access</button>
         </td>
     </tr>
     `;
@@ -1168,10 +1198,14 @@
                 const res = await fetch('/api/v1/admin/logs');
                 const data = await res.json();
 
-                const container = document.querySelector('#view-logs .space-y-8');
+                const container = document.getElementById('audit-log-container');
                 if (!container) return;
 
                 container.innerHTML = ''; // Clear static logs
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500 italic">No logs found.</p>';
+                }
 
                 data.forEach(log => {
                     let color = 'bg-white/20'; // info
@@ -1180,15 +1214,16 @@
                     if (log.severity === 'important') color = 'bg-system-red';
 
                     container.innerHTML += `
-    <div class="ml-6 relative">
-        <span class="absolute -left-[31px] bg-bg-deep border border-white/20 size-4 rounded-full ${color}"></span>
-        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-            <span class="text-xs text-gray-600 font-mono">${new Date(log.timestamp).toLocaleTimeString()}</span>
-            <span class="text-white font-medium">${log.action}</span>
-        </div>
-        <p class="text-gray-500 text-sm mt-1">${log.details}</p>
-    </div>
-    `;
+                    <div class="ml-6 relative pl-4 border-l border-white/10 pb-4 last:border-0 last:pb-0">
+                        <span class="absolute -left-[5px] top-0 bg-bg-deep border border-white/20 size-2.5 rounded-full ${color}"></span>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mb-1">
+                            <span class="text-xs text-gray-500 font-mono">${new Date(log.timestamp).toLocaleString()}</span>
+                            <span class="text-white font-bold">${log.action}</span>
+                        </div>
+                        <p class="text-gray-400 text-xs">${log.details}</p>
+                        ${log.userId ? `<div class="text-[10px] text-gray-600 mt-1">By: ${log.userId.email}</div>` : ''}
+                    </div>
+                    `;
                 });
 
             } catch (e) { console.error(e); }
@@ -1199,6 +1234,8 @@
             fetchRestaurants();
             fetchUsers();
             fetchConfig();
+            fetchAuditLogs();
+            fetchMenuRequests();
         });
     </script>
 </body>

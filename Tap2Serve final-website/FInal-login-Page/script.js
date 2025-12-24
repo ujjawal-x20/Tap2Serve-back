@@ -62,7 +62,7 @@ loginForm.addEventListener("submit", async (e) => {
         // REDIRECT STRATEGY
         window.parent.postMessage({ type: 'LOGIN_SUCCESS', redirect: data.redirect }, '*');
         if (window.top === window.self) {
-            window.location.href = "../testing-page/dashboard.html";
+            window.location.href = data.redirect;
         }
 
     } catch (err) {

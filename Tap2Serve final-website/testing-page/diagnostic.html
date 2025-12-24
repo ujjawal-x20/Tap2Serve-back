@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quick Diagnostic</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 40px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .step {
+            padding: 15px;
+            margin: 10px 0;
+            background: #2a2a2a;
+            border-left: 4px solid #666;
+        }
+
+        .step.success {
+            border-color: #4ade80;
+        }
+
+        .step.error {
+            border-color: #f87171;
+        }
+
+        .step.pending {
+            border-color: #fbbf24;
+        }
+
+        button {
+            padding: 12px 24px;
+            margin: 10px 5px;
+            background: #c9a24d;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #fff;
+        }
+
+        pre {
+            background: #000;
+            padding: 10px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+
+        .highlight {
+            color: #4ade80;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Quick Diagnostic Tool</h1>
+    <p>This will test the complete flow in 30 seconds</p>
+
+    <button onclick="runFullTest()" style="font-size: 20px; padding: 20px 40px;">▶️ RUN FULL TEST</button>
+    <button onclick="location.reload()">🔄 Reset</button>
+
+    <div id="results"></div>
+
+    <script>
+        function addStep(title, status, details) {
+            const div = document.createElement('div');
+            div.className = 'step ' + status;
+            div.innerHTML = `<h3>${title}</h3><pre>${details}</pre>`;
+            document.getElementById('results').appendChild(div);
+        }
+
+        async function runFullTest() {
+            document.getElementById('results').innerHTML = '';
+
+            // Step 1: Clear old data
+            addStep('Step 1: Clearing old session', 'pending', 'Removing old tokens...');
+            localStorage.clear();
+            await sleep(500);
+            addStep('Step 1: Session cleared', 'success', 'localStorage is now empty');
+
+            // Step 2: Login
+            addStep('Step 2: Attempting login', 'pending', 'POST /api/v1/auth/login\\nEmail: owner@test.com');
+            try {
+                const loginRes = await fetch('/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'owner@test.com',
+                        password: 'owner123'
+                    })
+                });
+
+                const loginData = await loginRes.json();
+
+                if (loginData.token) {
+                    localStorage.setItem('token', loginData.token);
+                    localStorage.setItem('user', JSON.stringify(loginData.user));
+                    addStep('Step 2: Login SUCCESS ✅', 'success',
+                        `Token: ${loginData.token.substring(0, 30)}...\\nUser: ${loginData.user.name}\\nRole: ${loginData.user.role}\\nRestaurant ID: ${loginData.user.restaurantId || 'MISSING!'}`);
+                } else {
+                    addStep('Step 2: Login FAILED ❌', 'error', JSON.stringify(loginData, null, 2));
+                    return;
+                }
+            } catch (e) {
+                addStep('Step 2: Login ERROR ❌', 'error', e.message);
+                return;
+            }
+
+            await sleep(500);
+
+            // Step 3: Get Restaurants
+            addStep('Step 3: Fetching restaurants', 'pending', 'GET /api/v1/restaurants');
+            try {
+                const token = localStorage.getItem('token');
+                const restRes = await fetch('/api/v1/restaurants', {
+                    headers: { 'Authorization': \`Bearer \${token}\` }
+                });
+                
+                const restData = await restRes.json();
+                
+                if (Array.isArray(restData) && restData.length > 0) {
+                    addStep('Step 3: Restaurants loaded ✅', 'success', 
+                        \`Found \${restData.length} restaurant(s):\\n\${JSON.stringify(restData[0], null, 2)}\`);
+                    window.testRestaurant = restData[0];
+                } else {
+                    addStep('Step 3: No restaurants found ⚠️', 'error', JSON.stringify(restData, null, 2));
+                    return;
+                }
+            } catch(e) {
+                addStep('Step 3: Restaurant fetch ERROR ❌', 'error', e.message);
+                return;
+            }
+
+            await sleep(500);
+
+            // Step 4: Get Menu
+            addStep('Step 4: Fetching menu', 'pending', 'GET /api/v1/menu');
+            try {
+                const token = localStorage.getItem('token');
+                const menuRes = await fetch('/api/v1/menu', {
+                    headers: { 'Authorization': \`Bearer \${token}\` }
+                });
+                
+                const menuData = await menuRes.json();
+                
+                if (Array.isArray(menuData) && menuData.length > 0) {
+                    addStep('Step 4: Menu loaded ✅', 'success', 
+                        \`Found \${menuData.length} items\\nFirst item: \${menuData[0].name} - ₹\${menuData[0].price}\`);
+                    window.testMenuItem = menuData[0];
+                } else {
+                    addStep('Step 4: No menu items ⚠️', 'error', JSON.stringify(menuData, null, 2));
+                    return;
+                }
+            } catch(e) {
+                addStep('Step 4: Menu fetch ERROR ❌', 'error', e.message);
+                return;
+            }
+
+            await sleep(500);
+
+            // Step 5: Create Order
+            addStep('Step 5: Creating test order', 'pending', 'POST /api/v1/orders for Table T-01');
+            try {
+                const token = localStorage.getItem('token');
+                const user = JSON.parse(localStorage.getItem('user'));
+                
+                const orderPayload = {
+                    table_no: 'T-01',
+                    restaurantId: window.testRestaurant.id,
+                    items: [{
+                        name: window.testMenuItem.name,
+                        price: window.testMenuItem.price,
+                        quantity: 1,
+                        menuId: window.testMenuItem._id || window.testMenuItem.id
+                    }],
+                    total: window.testMenuItem.price,
+                    idempotencyKey: 'diag_' + Date.now()
+                };
+                
+                const orderRes = await fetch('/api/v1/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': \`Bearer \${token}\`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderPayload)
+                });
+                
+                const orderData = await orderRes.json();
+                
+                if (orderData.success || orderData.id) {
+                    addStep('Step 5: Order created ✅', 'success', 
+                        \`Order ID: \${orderData.id}\\nPayload sent:\\n\${JSON.stringify(orderPayload, null, 2)}\`);
+                    window.testOrderId = orderData.id;
+                } else {
+                    addStep('Step 5: Order creation FAILED ❌', 'error', JSON.stringify(orderData, null, 2));
+                    return;
+                }
+            } catch(e) {
+                addStep('Step 5: Order creation ERROR ❌', 'error', e.message);
+                return;
+            }
+
+            await sleep(500);
+
+            // Step 6: Verify Order Exists
+            addStep('Step 6: Verifying order in database', 'pending', 'GET /api/v1/orders');
+            try {
+                const token = localStorage.getItem('token');
+                const ordersRes = await fetch('/api/v1/orders?restaurantId=' + window.testRestaurant.id, {
+                    headers: { 'Authorization': \`Bearer \${token}\` }
+                });
+                
+                const ordersData = await ordersRes.json();
+                
+                const ourOrder = ordersData.find(o => o.id === window.testOrderId || o._id === window.testOrderId);
+                
+                if (ourOrder) {
+                    addStep('Step 6: Order FOUND in database ✅', 'success', 
+                        \`Status: \${ourOrder.status}\\nTable: \${ourOrder.tableNo}\\nTotal: ₹\${ourOrder.total}\\n\\n✨ ORDER FLOW WORKING! ✨\`);
+                    addStep('🎉 SUCCESS! All tests passed', 'success', 
+                        \`The dashboard should now work correctly!\\n\\nNext: Open http://localhost:3000/dashboard.html\\nYou should already be logged in.\\nClick Tables & Zones and verify Table T-01 shows as occupied.\`);
+                } else {
+                    addStep('Step 6: Order NOT FOUND ⚠️', 'error', 
+                        \`Created order ID: \${window.testOrderId}\\nOrders in DB: \${ordersData.length}\\n\\nAll orders:\\n\${JSON.stringify(ordersData, null, 2)}\`);
+                }
+            } catch(e) {
+                addStep('Step 6: Order verification ERROR ❌', 'error', e.message);
+                return;
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+</body>
+
+</html>

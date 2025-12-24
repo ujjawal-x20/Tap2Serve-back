@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard Debug Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        .error {
+            color: #f87171;
+        }
+
+        .warning {
+            color: #fbbf24;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #c9a24d;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #fff;
+        }
+
+        pre {
+            background: #000;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔧 Dashboard Debug Tool</h1>
+
+    <div class="section">
+        <h2>Step 1: Authentication Check</h2>
+        <div id="auth-status"></div>
+        <button onclick="checkAuth()">Check Auth Status</button>
+        <button onclick="login()">Quick Login (Test User)</button>
+    </div>
+
+    <div class="section">
+        <h2>Step 2: API Tests</h2>
+        <button onclick="testRestaurants()">Test GET /restaurants</button>
+        <button onclick="testOrders()">Test GET /orders</button>
+        <button onclick="testCreateOrder()">Test POST /orders</button>
+        <div id="api-results"></div>
+    </div>
+
+    <div class="section">
+        <h2>Step 3: Console Logs</h2>
+        <div id="console-log"></div>
+    </div>
+
+    <script>
+        const log = (msg, type = 'info') => {
+            const consoleDiv = document.getElementById('console-log');
+            const color = type === 'error' ? 'error' : type === 'success' ? 'success' : 'warning';
+            consoleDiv.innerHTML += `<div class="${color}">[${new Date().toLocaleTimeString()}] ${msg}</div>`;
+        };
+
+        function checkAuth() {
+            const authDiv = document.getElementById('auth-status');
+            const user = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+
+            let html = '';
+            if (user) {
+                try {
+                    const userObj = JSON.parse(user);
+                    html += `<div class="success">✓ User found: ${userObj.name} (${userObj.role})</div>`;
+                } catch (e) {
+                    html += `<div class="error">✗ User data corrupted</div>`;
+                }
+            } else {
+                html += `<div class="error">✗ No user in localStorage</div>`;
+            }
+
+            if (token) {
+                html += `<div class="success">✓ Token exists (${token.substring(0, 20)}...)</div>`;
+            } else {
+                html += `<div class="error">✗ No token in localStorage</div>`;
+            }
+
+            authDiv.innerHTML = html;
+        }
+
+        async function login() {
+            log('Attempting login...');
+            try {
+                const res = await fetch('/api/v1/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'admin@tap2serve.com',
+                        password: 'admin123'
+                    })
+                });
+
+                const data = await res.json();
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    log('Login successful!', 'success');
+                    checkAuth();
+                } else {
+                    log('Login failed: ' + JSON.stringify(data), 'error');
+                }
+            } catch (e) {
+                log('Login error: ' + e.message, 'error');
+            }
+        }
+
+        async function testRestaurants() {
+            log('Testing GET /api/v1/restaurants...');
+            const resultsDiv = document.getElementById('api-results');
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch('/api/v1/restaurants', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                resultsDiv.innerHTML = `<h3>Restaurants:</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                log('Restaurants loaded: ' + data.length + ' found', 'success');
+            } catch (e) {
+                resultsDiv.innerHTML = `<h3 class="error">Error:</h3><pre>${e.message}</pre>`;
+                log('Restaurant fetch error: ' + e.message, 'error');
+            }
+        }
+
+        async function testOrders() {
+            log('Testing GET /api/v1/orders...');
+            const resultsDiv = document.getElementById('api-results');
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch('/api/v1/orders', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                resultsDiv.innerHTML = `<h3>Orders:</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                log('Orders loaded: ' + data.length + ' found', 'success');
+            } catch (e) {
+                resultsDiv.innerHTML = `<h3 class="error">Error:</h3><pre>${e.message}</pre>`;
+                log('Orders fetch error: ' + e.message, 'error');
+            }
+        }
+
+        async function testCreateOrder() {
+            log('Testing POST /api/v1/orders...');
+            const resultsDiv = document.getElementById('api-results');
+            try {
+                const token = localStorage.getItem('token');
+                const user = JSON.parse(localStorage.getItem('user'));
+
+                const testOrder = {
+                    table_no: 'T-01',
+                    restaurantId: user.restaurantId,
+                    items: [{
+                        name: 'Test Item',
+                        price: 100,
+                        quantity: 1
+                    }],
+                    total: 100,
+                    idempotencyKey: 'test_' + Date.now()
+                };
+
+                log('Sending order: ' + JSON.stringify(testOrder));
+
+                const res = await fetch('/api/v1/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testOrder)
+                });
+
+                const data = await res.json();
+                resultsDiv.innerHTML = `<h3>Create Order Result:</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+
+                if (data.success) {
+                    log('✓ Order created successfully! ID: ' + data.id, 'success');
+                } else {
+                    log('✗ Order creation failed: ' + data.message, 'error');
+                }
+            } catch (e) {
+                resultsDiv.innerHTML = `<h3 class="error">Error:</h3><pre>${e.message}</pre>`;
+                log('Order creation error: ' + e.message, 'error');
+            }
+        }
+
+        // Auto-check on load
+        window.onload = () => {
+            checkAuth();
+            log('Debug tool loaded', 'success');
+        };
+    </script>
+</body>
+
+</html>

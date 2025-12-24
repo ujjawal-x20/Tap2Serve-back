@@ -25,7 +25,8 @@ const getStats = async (req, res) => {
             totalOrders,
             revenue,
             active_guests: activeGuests,
-            topItems
+            active_guests: activeGuests
+            // topItems placeholder removed if not computed
         });
     } catch (error) {
         res.status(500).json({ message: error.message });

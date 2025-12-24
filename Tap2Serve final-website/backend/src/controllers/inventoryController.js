@@ -4,7 +4,8 @@ const Menu = require('../models/Menu');
 // @desc    Get inventory for a restaurant
 // @route   GET /api/v1/inventory
 const getInventory = async (req, res) => {
-    const query = { restaurantId: req.restaurantId };
+    const query = {};
+    if (req.restaurantId) query.restaurantId = req.restaurantId;
     if (req.user.branchId) query.branchId = req.user.branchId;
 
     const inventory = await Inventory.find(query).populate('menuId', 'name');

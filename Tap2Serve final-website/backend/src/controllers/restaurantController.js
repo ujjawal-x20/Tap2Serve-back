@@ -65,4 +65,35 @@ const deleteRestaurant = async (req, res) => {
     res.json({ success: true, message: 'Restaurant removed' });
 };
 
-module.exports = { getRestaurants, createRestaurant, deleteRestaurant };
+const updateRestaurant = async (req, res) => {
+    const restaurant = await Restaurant.findById(req.params.id);
+
+    if (!restaurant) {
+        return res.status(404).json({ message: 'Restaurant not found' });
+    }
+
+    // Check ownership
+    if (req.user.role !== 'admin' && restaurant.ownerId.toString() !== req.user._id.toString()) {
+        return res.status(403).json({ message: 'Not authorized' });
+    }
+
+    const { name, location, tableCount } = req.body;
+    console.log("Update Restaurant Request:", req.body); // DEBUG LOG
+
+    restaurant.name = name || restaurant.name;
+    restaurant.location = location || restaurant.location;
+    if (tableCount !== undefined) restaurant.tableCount = tableCount; // Fix: Allow 0 if needed, check undefined
+
+    const updatedRestaurant = await restaurant.save();
+    console.log("Restaurant Updated:", updatedRestaurant); // DEBUG LOG
+
+    res.json({
+        success: true,
+        restaurant: {
+            ...updatedRestaurant.toObject(),
+            id: updatedRestaurant._id
+        }
+    });
+};
+
+module.exports = { getRestaurants, createRestaurant, deleteRestaurant, updateRestaurant };
