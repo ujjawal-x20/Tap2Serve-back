@@ -605,19 +605,25 @@
             window.location.href = "../Final-login-Page/index.html"; // Redirect to login
         }
 
-        // Global Fetch Interceptor to inject JWT Token
+        // Global Fetch Interceptor for Cookies
         const originalFetch = window.fetch;
-        window.fetch = function (url, options = {}) {
-            const token = localStorage.getItem('token');
-            options.headers = options.headers || {};
-            if (token) {
-                if (options.headers instanceof Headers) {
-                    options.headers.set('Authorization', `Bearer ${token}`);
-                } else {
-                    options.headers['Authorization'] = `Bearer ${token}`;
-                }
+        window.fetch = async function (url, options = {}) {
+            // F002 Fix: Only interact with internal API routes
+            const isInternal = url.startsWith('/api') || url.startsWith(window.location.origin + '/api');
+            if (isInternal) {
+                options.credentials = 'include';
             }
-            return originalFetch(url, options);
+
+            const response = await originalFetch(url, options);
+
+            // F003 Fix: Handle 401 Unauthorized
+            if (response.status === 401) {
+                console.warn("Session expired. Redirecting...");
+                localStorage.removeItem('user');
+                window.location.href = "../Final-login-Page/index.html";
+            }
+
+            return response;
         };
 
         document.addEventListener('DOMContentLoaded', () => {

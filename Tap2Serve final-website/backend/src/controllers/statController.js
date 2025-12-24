@@ -14,65 +14,79 @@ const getDashboardStats = async (req, res) => {
         yesterday.setHours(0, 0, 0, 0);
         today.setHours(0, 0, 0, 0);
 
-        // Fetch all orders for this restaurant
-        // Optimisation: In a real app, you'd index timestamps and only fetch needed range
-        // Fetch all orders for this restaurant (or all if Admin/Support and no ID forced)
-        let query = {};
+        let matchQuery = {};
         if (restaurantId) {
-            query.restaurantId = restaurantId;
+            matchQuery.restaurantId = new mongoose.Types.ObjectId(restaurantId);
         }
 
-        const allOrders = await Order.find(query);
+        const stats = await Order.aggregate([
+            { $match: matchQuery },
+            {
+                $facet: {
+                    todayStats: [
+                        { $match: { createdAt: { $gt: today } } },
+                        {
+                            $group: {
+                                _id: null,
+                                revenue: { $sum: { $cond: [{ $in: ["$status", ["Paid", "Served"]] }, "$total", 0] } },
+                                count: { $sum: 1 },
+                                items: { $push: "$items" }
+                            }
+                        }
+                    ],
+                    yesterdayStats: [
+                        { $match: { createdAt: { $gt: yesterday, $lt: today } } },
+                        {
+                            $group: {
+                                _id: null,
+                                revenue: { $sum: { $cond: [{ $in: ["$status", ["Paid", "Served"]] }, "$total", 0] } },
+                                count: { $sum: 1 }
+                            }
+                        }
+                    ],
+                    activeStats: [
+                        { $match: { status: { $in: ["New", "Cooking", "Ready", "Served"] } } },
+                        { $group: { _id: null, count: { $sum: 1 } } }
+                    ],
+                    avgPrep: [
+                        {
+                            $match: {
+                                createdAt: { $gt: today },
+                                status: { $in: ["Served", "Paid"] }
+                            }
+                        },
+                        {
+                            $group: {
+                                _id: null,
+                                avgMinutes: {
+                                    $avg: {
+                                        $divide: [{ $subtract: ["$updatedAt", "$createdAt"] }, 60000]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]);
 
-        // --- CORE METRICS ---
-        const todayOrders = allOrders.filter(o => new Date(o.createdAt) >= today);
-        const yesterdayOrders = allOrders.filter(o => {
-            const d = new Date(o.createdAt);
-            return d >= yesterday && d < today;
-        });
+        const todayRes = stats[0].todayStats[0] || { revenue: 0, count: 0, items: [] };
+        const yesterdayRes = stats[0].yesterdayStats[0] || { revenue: 0, count: 0 };
+        const activeRes = stats[0].activeStats[0] || { count: 0 };
+        const avgPrepRes = stats[0].avgPrep[0] || { avgMinutes: 0 };
 
-        // 1. Revenue
-        const calculateRevenue = (orders) => orders
-            .filter(o => ['Paid', 'Served'].includes(o.status))
-            .reduce((acc, curr) => acc + curr.total, 0);
-
-        const revenueToday = calculateRevenue(todayOrders);
-        const revenueYesterday = calculateRevenue(yesterdayOrders);
+        const revenueToday = todayRes.revenue;
+        const revenueYesterday = yesterdayRes.revenue;
         const revenueDiff = revenueToday - revenueYesterday;
         const revenueGrowth = revenueYesterday > 0 ? (revenueDiff / revenueYesterday) * 100 : (revenueToday > 0 ? 100 : 0);
 
-        // 2. Orders Count
-        const ordersDiff = todayOrders.length - yesterdayOrders.length;
-        const ordersGrowth = yesterdayOrders.length > 0 ? (ordersDiff / yesterdayOrders.length) * 100 : (todayOrders.length > 0 ? 100 : 0);
+        const ordersDiff = todayRes.count - yesterdayRes.count;
+        const ordersGrowth = yesterdayRes.count > 0 ? (ordersDiff / yesterdayRes.count) * 100 : (todayRes.count > 0 ? 100 : 0);
 
-        // 3. Active Guests (approx 2 per active table/order)
-        const activeOrders = allOrders.filter(o => ['New', 'Cooking', 'Ready', 'Served'].includes(o.status));
-        const activeGuests = activeOrders.length * 2;
-
-        // 4. Avg Prep Time (Mock logic based on status updates if timestamps missing, or real if available)
-        // Since we don't strictly track status change timestamps in the simple schema, we'll estimate
-        // active prep time for 'Cooking' items or average completed time.
-        // For MVP: let's calc avg time for 'Served' orders today from createdAt to updatedAt
-        const servedToday = todayOrders.filter(o => o.status === 'Served' || o.status === 'Paid');
-        let avgPrepMinutes = 0;
-        if (servedToday.length > 0) {
-            const totalTime = servedToday.reduce((acc, o) => {
-                // If updatedAt is accessible
-                const start = new Date(o.createdAt);
-                const end = new Date(o.updatedAt);
-                return acc + (end - start);
-            }, 0);
-            avgPrepMinutes = Math.round((totalTime / servedToday.length) / 60000); // ms to min
-        }
-
-        // 5. Kitchen Load
-        // Active orders count vs "Capacity" (mock capacity 20)
-        const kitchenLoadValue = Math.min(Math.round((activeOrders.length / 20) * 100), 100);
-
-        // 6. Trending Items (Top 3 today)
+        // Trending Items manually from the todayRes.items (faceted small subset)
         const itemMap = {};
-        todayOrders.forEach(o => {
-            o.items.forEach(i => {
+        todayRes.items.forEach(orderItems => {
+            orderItems.forEach(i => {
                 itemMap[i.name] = (itemMap[i.name] || 0) + (i.quantity || i.qty || 1);
             });
         });
@@ -83,15 +97,15 @@ const getDashboardStats = async (req, res) => {
 
         res.json({
             revenue: revenueToday,
-            revenue_growth: revenueGrowth,
+            revenue_growth: revenueGrowth.toFixed(1),
             revenue_diff: revenueDiff,
-            orders: todayOrders.length,
-            orders_growth: ordersGrowth,
-            active_guests: activeGuests,
-            avg_prep_time: avgPrepMinutes,
+            orders: todayRes.count,
+            orders_growth: ordersGrowth.toFixed(1),
+            active_guests: activeRes.count * 2,
+            avg_prep_time: Math.round(avgPrepRes.avgMinutes || 0),
             kitchen_load: {
-                value: kitchenLoadValue,
-                active_count: activeOrders.length
+                value: Math.min(Math.round((activeRes.count / 20) * 100), 100),
+                active_count: activeRes.count
             },
             trending_items: trending
         });

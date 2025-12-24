@@ -28,9 +28,10 @@ const getBranches = async (req, res) => {
 
 const updateBranch = async (req, res) => {
     try {
+        const { name, address, contactNumber, prepTime, tableConfig } = req.body;
         const branch = await Branch.findOneAndUpdate(
             { _id: req.params.id, restaurantId: req.restaurantId },
-            req.body,
+            { name, address, contactNumber, prepTime, tableConfig },
             { new: true }
         );
         if (!branch) return res.status(404).json({ message: 'Branch not found' });

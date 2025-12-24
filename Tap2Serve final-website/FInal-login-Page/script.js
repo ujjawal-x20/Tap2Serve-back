@@ -42,7 +42,8 @@ loginForm.addEventListener("submit", async (e) => {
             const res = await fetch("/api/v1/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password, role })
+                body: JSON.stringify({ email, password, role }),
+                credentials: 'include' // Allow receiving cookies
             });
             data = await res.json();
             success = res.ok && data.success;
@@ -53,10 +54,9 @@ loginForm.addEventListener("submit", async (e) => {
 
         if (!success) throw new Error(data?.message || "Login failed");
 
-        // Save User Session (Critical for Data Isolation)
-        if (data.user && data.token) {
+        // Save User Session (Metadata only, token is in HttpOnly Cookie)
+        if (data.user) {
             localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('token', data.token);
         }
 
         // REDIRECT STRATEGY

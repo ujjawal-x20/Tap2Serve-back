@@ -46,7 +46,8 @@ const approveMenu = async (req, res) => {
 // @desc    Reject menu item
 // @route   DELETE /api/v1/admin/menu/:id/reject
 const rejectMenu = async (req, res) => {
-    await Menu.findByIdAndDelete(req.params.id);
+    const menu = await Menu.findByIdAndUpdate(req.params.id, { status: 'rejected' }, { new: true });
+    if (!menu) return res.status(404).json({ message: 'Item not found' });
     res.json({ success: true });
 };
 

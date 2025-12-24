@@ -6,11 +6,14 @@ const AuditLog = require('../models/AuditLog');
 // @access  Private
 const getMenu = async (req, res) => {
     try {
-        const restaurantId = req.params.restaurantId || req.restaurantId;
+        // Multi-tenant check: Always use restaurantId from token
+        const restaurantId = req.restaurantId;
+        if (!restaurantId) return res.status(403).json({ message: "Restaurant context missing" });
+
         const menu = await Menu.find({ restaurantId });
         const formattedMenu = menu.map(item => ({
             ...item.toObject(),
-            id: item._id.toString() // Explicitly convert _id to string for frontend safety
+            id: item._id.toString()
         }));
         res.json(formattedMenu);
     } catch (error) {

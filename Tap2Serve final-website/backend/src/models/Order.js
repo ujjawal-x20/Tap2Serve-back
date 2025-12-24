@@ -23,5 +23,6 @@ orderSchema.index({ restaurantId: 1, createdAt: -1 });
 orderSchema.index({ status: 1 });
 orderSchema.index({ branchId: 1 });
 orderSchema.index({ idempotencyKey: 1 }, { unique: true, sparse: true });
+orderSchema.index({ invoiceId: 1 }, { unique: true, sparse: true });
 
 module.exports = mongoose.model('Order', orderSchema);

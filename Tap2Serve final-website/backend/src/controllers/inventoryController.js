@@ -38,17 +38,26 @@ const updateStock = async (req, res) => {
     res.json({ success: true, inventory });
 };
 
-// @desc    Check stock availability (Internal Helper)
+// @desc    Check stock availability (Internal Helper) - Fixed N+1 query
 const checkStock = async (restaurantId, items) => {
+    const menuIds = items.map(i => i.menuId).filter(id => id);
+    if (menuIds.length === 0) return { available: true };
+
+    const invRecords = await Inventory.find({
+        restaurantId,
+        menuId: { $in: menuIds }
+    });
+
+    const invMap = {};
+    invRecords.forEach(r => invMap[r.menuId.toString()] = r.quantity);
+
     for (const item of items) {
-        // Skip if no menuId (custom item?)
         if (!item.menuId) continue;
+        const currentQty = invMap[item.menuId.toString()];
 
-        const inv = await Inventory.findOne({ restaurantId, menuId: item.menuId });
-
-        // If no inventory record exists, assume unlimited stock (or 0 depending on policy - here unlimited for backward compat unless set)
-        if (inv && inv.quantity < item.quantity) {
-            return { available: false, item: item.name, current: inv.quantity };
+        // If inventory record exists, check stock. If not, assume unlimited.
+        if (currentQty !== undefined && currentQty < item.quantity) {
+            return { available: false, item: item.name, current: currentQty };
         }
     }
     return { available: true };

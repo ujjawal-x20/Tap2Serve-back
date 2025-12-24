@@ -10,7 +10,7 @@ const menuSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     available: { type: Boolean, default: true },
     imageUrl: { type: String },
-    status: { type: String, enum: ['pending', 'approved'], default: 'pending' }
+    status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' }
 }, { timestamps: true });
 
 menuSchema.index({ restaurantId: 1 });

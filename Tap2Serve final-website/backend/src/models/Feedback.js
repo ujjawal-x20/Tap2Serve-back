@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const feedbackSchema = new mongoose.Schema({
     restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant', required: true },
-    branchId: { type: mongoose.Schema.Types.ObjectId, ref: 'Branch', required: true },
+    branchId: { type: mongoose.Schema.Types.ObjectId, ref: 'Branch' },
     orderId: { type: mongoose.Schema.Types.ObjectId, ref: 'Order' },
     tableNo: { type: String },
     rating: { type: Number, min: 1, max: 5, required: true },
