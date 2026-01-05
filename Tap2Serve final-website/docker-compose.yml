@@ -3,19 +3,21 @@ version: '3.8'
 services:
   app:
     build: .
+    container_name: tap2serve-app
     ports:
       - "5000:5000"
     environment:
-      - NODE_ENV=production
-      - PORT=5000
-      - MONGO_URI=mongodb://mongo:27017/tap2serve
-      - JWT_SECRET=dev_secret_key_123
+      NODE_ENV: production
+      PORT: 5000
+      MONGO_URI: mongodb://mongo:27017/tap2serve
+      JWT_SECRET: dev_secret_key_123
     depends_on:
       - mongo
     restart: always
 
   mongo:
-    image: mongo:latest
+    image: mongo:6.0
+    container_name: tap2serve-mongo
     ports:
       - "27017:27017"
     volumes:

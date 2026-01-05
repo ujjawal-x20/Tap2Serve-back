@@ -28,7 +28,60 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "blob:",
+          "https://cdn.tailwindcss.com",
+          "https://cdnjs.cloudflare.com",
+          "https://cdn.jsdelivr.net"
+        ],
+
+        // 👇 INLINE onclick / onload FIX
+        scriptSrcAttr: ["'unsafe-inline'"],
+
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com"
+        ],
+
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com"
+        ],
+
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://ui-avatars.com",
+          "https://lh3.googleusercontent.com",
+          "https://images.unsplash.com",
+          "https://cdn.jsdelivr.net"
+        ],
+
+        connectSrc: [
+          "'self'",
+          "blob:",
+          "https://cdn.jsdelivr.net"
+        ],
+
+        objectSrc: ["'none'"],
+        frameAncestors: ["'self'"]
+      }
+    },
+    crossOriginEmbedderPolicy: false
+  })
+);
+
 
 // Body parser
 // Body parser with raw body preservation for webhooks
@@ -130,15 +183,15 @@ app.get('/sitemap.xml', (req, res) => res.sendFile(path.join(__dirname, '../site
 
 // STATIC FILES SERVING
 // 1. Landing Page (Root)
-app.use(express.static(path.join(__dirname, '../testing-page')));
+app.use('/',express.static(path.join(__dirname, '../testing-page')));
 
 // 2. Explicit folder routes to prevent 404s if user types full path
 app.use('/testing-page', express.static(path.join(__dirname, '../testing-page')));
-app.use('/FInal-login-Page', express.static(path.join(__dirname, '../FInal-login-Page')));
+app.use('/final-login-page', express.static(path.join(__dirname, '../final-login-page')));
 
 
 // 3. Login Page (Mounted at /login)
-app.use('/login', express.static(path.join(__dirname, '../FInal-login-Page')));
+app.use('/login', express.static(path.join(__dirname, '../final-login-page')));
 
 // Explicit redirect for login navigation
 app.get('/login-redirect', (req, res) => {

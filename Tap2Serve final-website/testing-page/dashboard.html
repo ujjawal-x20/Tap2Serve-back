@@ -2058,6 +2058,7 @@
         });
 
         function printQRCodes() {
+            console.log("QR-Generate:",currentRestaurant)
             if (!currentRestaurant) return;
             const totalTables = currentRestaurant.tableCount || 10;
             const startInput = document.getElementById('qr-start');
